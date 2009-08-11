@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mappings>
+	<map key="Space" action="ToggleMatch" />
+	<map key="C" action="ToggleCombed" />
+	<map key="Q" action="SetLockRangeStartFrame" />
+	<map key="W" action="SetLockRangeEndFrame" />
+	<map key="T" action="EnterFrameRangePattern" />
+	<map key="Y" action="ToggleFrameRangeCombed" />
+	<map key="U" action="ApplyFrameRange" />
+</mappings>

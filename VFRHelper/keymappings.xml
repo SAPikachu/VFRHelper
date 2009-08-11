@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mappings>
+	<map key="Left" action="PrevKeyFrame" />
+	<map key="Right" action="NextKeyFrame" />
+	<map key="Left" shift="true" action="PrevFrame" />
+	<map key="Right" shift="true" action="NextFrame" />
+	<map key="Space" action="ChapterSetTimecode" />
+	<map key="F12" action="Benchmark" />
+	<map key="Up" action="ChapterListMoveUp" />
+	<map key="Down" action="ChapterListMoveDown" />
+	<map key="Home" action="DiscordKey" />
+	<map key="End" action="DiscordKey" />
+	<map key="G" ctrl="true" action="JumpToFrame" />
+</mappings>

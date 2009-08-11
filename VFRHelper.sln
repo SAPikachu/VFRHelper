@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VFRHelper", "VFRHelper\VFRHelper.vbproj", "{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviFile", "..\AVIFileWrapper\AviFile.csproj", "{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TfmOverrideEditorPlugin", "TfmOverrideEditorPlugin\TfmOverrideEditorPlugin.vbproj", "{40199D31-3D1D-4491-8233-912CA8EE866D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AviSynthRangeTemplatePlugin", "AviSynthRangeTemplatePlugin\AviSynthRangeTemplatePlugin.vbproj", "{EC57CD08-87DF-4325-A215-D8A06FDC9EB4}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "OutputKeyFrame", "OutputKeyFrame\OutputKeyFrame.vbproj", "{FE9BC5D8-EE96-4F12-B411-5827ECDF689D}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Debug|x86.ActiveCfg = Debug|x86
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Debug|x86.Build.0 = Debug|x86
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Release|Any CPU.Build.0 = Release|Any CPU
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Release|x86.ActiveCfg = Release|x86
+		{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}.Release|x86.Build.0 = Release|x86
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Debug|x86.ActiveCfg = Debug|x86
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Debug|x86.Build.0 = Debug|x86
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Release|x86.ActiveCfg = Release|x86
+		{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}.Release|x86.Build.0 = Release|x86
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Debug|x86.ActiveCfg = Debug|x86
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Debug|x86.Build.0 = Debug|x86
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Release|x86.ActiveCfg = Release|x86
+		{40199D31-3D1D-4491-8233-912CA8EE866D}.Release|x86.Build.0 = Release|x86
+		{EC57CD08-87DF-4325-A215-D8A06FDC9EB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC57CD08-87DF-4325-A215-D8A06FDC9EB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC57CD08-87DF-4325-A215-D8A06FDC9EB4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EC57CD08-87DF-4325-A215-D8A06FDC9EB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC57CD08-87DF-4325-A215-D8A06FDC9EB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC57CD08-87DF-4325-A215-D8A06FDC9EB4}.Release|x86.ActiveCfg = Release|Any CPU
+		{FE9BC5D8-EE96-4F12-B411-5827ECDF689D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE9BC5D8-EE96-4F12-B411-5827ECDF689D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE9BC5D8-EE96-4F12-B411-5827ECDF689D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE9BC5D8-EE96-4F12-B411-5827ECDF689D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE9BC5D8-EE96-4F12-B411-5827ECDF689D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE9BC5D8-EE96-4F12-B411-5827ECDF689D}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
