@@ -31,6 +31,12 @@
 
         Public MustOverride Sub Open(ByVal filePath As String) Implements IVideoProvider.Open
 
+        Public Overridable ReadOnly Property VideoSize() As Size Implements IVideoProvider.VideoSize
+            Get
+                Return Size.Empty
+            End Get
+        End Property
+
         Protected Sub ForceSeek(ByVal frameNumber As Integer)
             CheckDisposed()
             _currentFrameNumber = frameNumber

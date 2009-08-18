@@ -20,6 +20,7 @@ Namespace VideoProviders
         ReadOnly Property CurrentFrameType() As FrameType
         ReadOnly Property FrameCount() As Integer
         ReadOnly Property FrameRate() As Double
+        ReadOnly Property VideoSize() As Size
     End Interface
 
 End Namespace

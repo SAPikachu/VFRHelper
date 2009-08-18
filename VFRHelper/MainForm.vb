@@ -192,6 +192,10 @@ Public Class MainForm
             DisableControls()
         Else
             EnableControls()
+            Dim videoSize = newProvider.VideoSize
+            If Not videoSize.IsEmpty Then
+                Me.Size = New Size(Math.Min(Screen.PrimaryScreen.WorkingArea.Width, Me.Width - picFrame.Width + videoSize.Width), Math.Min(Screen.PrimaryScreen.WorkingArea.Height, Me.Height - picFrame.Height + videoSize.Height))
+            End If
         End If
         If _pluginHost IsNot Nothing Then
             _pluginHost.OnVideoProviderChanged()

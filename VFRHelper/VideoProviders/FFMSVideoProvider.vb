@@ -741,6 +741,12 @@ Namespace VideoProviders
             Dispose(False)
             MyBase.Finalize()
         End Sub
+
+        Public Overrides ReadOnly Property VideoSize() As System.Drawing.Size
+            Get
+                Return New Size(_videoProperties.Width, _videoProperties.Height)
+            End Get
+        End Property
     End Class
 
 End Namespace

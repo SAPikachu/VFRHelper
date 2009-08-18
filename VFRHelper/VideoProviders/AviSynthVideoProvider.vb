@@ -75,6 +75,12 @@ Private Shared Function dimzon_avs_destroy(ByRef avs As IntPtr) As Integer
             End Get
         End Property
 
+        Public Overrides ReadOnly Property VideoSize() As System.Drawing.Size
+            Get
+                Return New Size(_vi.width, _vi.height)
+            End Get
+        End Property
+
         Public Overrides Sub GetFrame(ByRef output As System.Drawing.Bitmap)
             CheckDisposed()
             If output Is Nothing OrElse output.PixelFormat <> PixelFormat.Format24bppRgb OrElse _
