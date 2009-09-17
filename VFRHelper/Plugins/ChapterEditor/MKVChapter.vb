@@ -20,10 +20,21 @@ Namespace Plugins.ChapterEditor
                 Next
                 Data.Add("OtherNode", otherNode.ToString())
 
+                Dim prevEntry As ChapterEntry = Nothing
                 For Each node As XmlNode In doc.DocumentElement.SelectNodes("/Chapters/EditionEntry/ChapterAtom")
-                    Dim entry As New ChapterEntry(node.SelectSingleNode("ChapterDisplay/ChapterString").InnerText, TimeSpan.Parse(node("ChapterTimeStart").InnerText.TrimEnd("0"c)), TimeSpan.Parse(node("ChapterTimeEnd").InnerText.TrimEnd("0"c)))
+                    Dim startTime As TimeSpan = TimeSpan.Parse(node("ChapterTimeStart").InnerText.TrimEnd("0"c))
+                    Dim endTime As TimeSpan = TimeSpan.Zero
+                    Dim endTimeNode As XmlElement = node("ChapterTimeEnd")
+                    If endTimeNode IsNot Nothing Then
+                        endTime = TimeSpan.Parse(endTimeNode.InnerText.TrimEnd("0"c))
+                    End If
+                    If prevEntry IsNot Nothing AndAlso prevEntry.End = TimeSpan.Zero Then
+                        prevEntry.End = startTime.Add(TimeSpan.FromMilliseconds(-1))
+                    End If
+                    Dim entry As New ChapterEntry(node.SelectSingleNode("ChapterDisplay/ChapterString").InnerText, startTime, endTime)
                     entry.Data.Add("Node", node.InnerXml)
                     Entries.Add(entry)
+                    prevEntry = entry
                 Next
             Catch ex As Exception
                 Throw New Exception("Not a valid matroska chapter file", ex)
