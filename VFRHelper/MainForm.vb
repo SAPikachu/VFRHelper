@@ -459,7 +459,7 @@ Public Class MainForm
                 MessageBox.Show("Couldn't determine type of one or more files", "Error")
                 Return
             End If
-            OpenFiles(files)
+            BeginInvoke(New Action(Of IList(Of String))(AddressOf OpenFiles), New Object() {files})
         End If
     End Sub
 

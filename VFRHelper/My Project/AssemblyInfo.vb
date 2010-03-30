@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("SAPStudio")> 
 <Assembly: AssemblyProduct("VFRHelper")> 
-<Assembly: AssemblyCopyright("Copyright (C) SAPStudio 2007-2008")> 
+<Assembly: AssemblyCopyright("Copyright (C) SAPStudio 2007-2010")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' 方法是按如下所示使用“*”:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.2.3.441")> 
-<Assembly: AssemblyFileVersion("1.2.3.441")> 
+<Assembly: AssemblyVersion("1.2.4.443")> 
+<Assembly: AssemblyFileVersion("1.2.4.443")> 
