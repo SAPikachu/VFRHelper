@@ -224,7 +224,7 @@ Public Class MainForm
             Case ".avs"
                 newProvider = New AviSynthVideoProvider
             Case ".mkv", ".mp4", ".flv"
-                newProvider = New FFMSVideoProvider
+                newProvider = New FFMS2VideoProvider
             Case Else
                 Throw New NotSupportedException("Unknown file format")
         End Select

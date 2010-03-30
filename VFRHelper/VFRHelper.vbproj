@@ -112,6 +112,7 @@
     <Compile Include="VideoProviders\AviFileVideoProvider.vb" />
     <Compile Include="VideoProviders\AviSynthVideoProvider.vb" />
     <Compile Include="VideoProviders\AviSynthException.vb" />
+    <Compile Include="VideoProviders\FFMS2VideoProvider.vb" />
     <Compile Include="VideoProviders\FFMSVideoProvider.vb" />
     <Compile Include="VideoProviders\FrameType.vb" />
     <Compile Include="VideoProviders\IVideoProviderHelper.vb" />
@@ -183,9 +184,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FFMS2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="ffms2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

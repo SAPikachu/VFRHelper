@@ -5,6 +5,7 @@ Imports System.Drawing.Imaging
 
 Namespace VideoProviders
 
+
     Public Class FFMSVideoProvider
         Inherits VideoProviderBase
 
