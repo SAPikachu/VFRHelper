@@ -3,7 +3,7 @@ Imports System.Windows.Forms
 Imports System.IO
 Public Class TfmSettingsForm
     Dim _stateStorage As New Dictionary(Of Control, Object)
-    Dim _dropAcceptExtensions As New Dictionary(Of Object, String)
+    Dim _dropAcceptExtensions As New Dictionary(Of Object, IList(Of String))
     Public Sub RestoreState()
         RestoreStateRecursive(Me)
     End Sub
@@ -57,7 +57,7 @@ Public Class TfmSettingsForm
         cboPPMode.SelectedIndex = 1
         cboMicmatching.SelectedIndex = 1
 
-        AddDragHandler(txtD2V, ".d2v")
+        AddDragHandler(txtD2V, ".d2v|.avs")
         AddDragHandler(txtExistingOverrides, ".txt")
         AddDragHandler(txtTfmAnalysisFile, ".txt")
     End Sub
@@ -140,7 +140,7 @@ Public Class TfmSettingsForm
     End Function
 
     Private Sub btnBrowseD2V_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBrowseD2V.Click
-        Dim fileName = ShowOpen("DGIndex project file(*.d2v)|*.d2v")
+        Dim fileName = ShowOpen("DGIndex project file(*.d2v)|*.d2v|AVISynth script(*.avs)|*.avs")
         If Not String.IsNullOrEmpty(fileName) Then
             txtD2V.Text = fileName
         End If
@@ -190,7 +190,7 @@ Public Class TfmSettingsForm
         End If
         If (e.AllowedEffect And DragDropEffects.Copy) = DragDropEffects.Copy AndAlso e.Data.GetDataPresent(DataFormats.FileDrop) Then
             Dim files As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
-            If Path.GetExtension(files(0)).ToLower() = _dropAcceptExtensions(sender) Then
+            If _dropAcceptExtensions(sender).Contains(Path.GetExtension(files(0)).ToLowerInvariant()) Then
                 e.Effect = DragDropEffects.Copy
             End If
         End If
@@ -201,13 +201,31 @@ Public Class TfmSettingsForm
         End If
         If e.Effect = DragDropEffects.Copy AndAlso e.Data.GetDataPresent(DataFormats.FileDrop) Then
             Dim files As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
-            If Path.GetExtension(files(0)).ToLower() = _dropAcceptExtensions(sender) Then
+            If _dropAcceptExtensions(sender).Contains(Path.GetExtension(files(0)).ToLowerInvariant()) Then
                 CType(sender, Control).Text = files(0)
             End If
         End If
     End Sub
     Private Sub AddDragHandler(ByVal ctl As Control, ByVal ext As String)
-        _dropAcceptExtensions(ctl) = ext.ToLower()
+        If ctl Is Nothing Then
+            Throw New ArgumentNullException("ctl", "ctl is nothing.")
+        End If
+        If String.IsNullOrEmpty(ext) Then
+            Throw New ArgumentException("ext is nothing or empty.", "ext")
+        End If
+        AddDragHandler(ctl, ext.Split("|"c))
+    End Sub
+    Private Sub AddDragHandler(ByVal ctl As Control, ByVal ext As IList(Of String))
+        If ctl Is Nothing Then
+            Throw New ArgumentNullException("ctl", "ctl is nothing.")
+        End If
+        If ext Is Nothing Then
+            Throw New ArgumentNullException("ext", "ext is nothing.")
+        End If
+        For i = 0 To ext.Count - 1
+            ext(i) = ext(i).ToLowerInvariant()
+        Next
+        _dropAcceptExtensions(ctl) = ext
         ctl.AllowDrop = True
         AddHandler ctl.DragEnter, AddressOf OnCtlDragEnter
         AddHandler ctl.DragDrop, AddressOf OnCtlDragDrop

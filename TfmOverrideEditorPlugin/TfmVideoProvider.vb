@@ -294,22 +294,33 @@ Public Class TfmVideoProvider
                 File.WriteAllText(String.Format("{0}.match_{1}_notcombed", fileName, code), String.Format("0,0 {0}{1}0,0 -", code, ControlChars.CrLf), Encoding.ASCII)
             Next
             'generate avs
+            filePath = Path.GetFullPath(filePath)
             Using swr As New StreamWriter(fileName, False, Encoding.Default)
                 Dim pluginDir As String = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
-                If File.Exists(Path.Combine(pluginDir, "DGDecode.dll")) Then
-                    swr.WriteLine("LoadPlugin(""{0}"")", Path.Combine(pluginDir, "DGDecode.dll"))
-                End If
+                swr.WriteLine("SetWorkingDir(""{0}"")", Path.GetDirectoryName(filePath))
                 If File.Exists(Path.Combine(pluginDir, "TIVTC.dll")) Then
                     swr.WriteLine("LoadPlugin(""{0}"")", Path.Combine(pluginDir, "TIVTC.dll"))
                 End If
-                swr.WriteLine("source = DGDecode_MPEG2Source(""{0}"")", filePath)
-                swr.WriteLine("source.tfm(d2v=""{0}"", {1})", filePath, tfmParameters)
-                swr.WriteLine("last+source.tfm(d2v=""{0}"", ovr=""{1}.combed"", {2})", filePath, fileName, tfmParameters)
-                swr.WriteLine("last+source.tfm(d2v=""{0}"", ovr=""{1}.notcombed"", {2})", filePath, fileName, tfmParameters)
+                Dim sourceExtension As String = Path.GetExtension(filePath).ToLowerInvariant()
+                If sourceExtension = ".avs" Then
+                    swr.WriteLine("source = Import(""{0}"")", filePath)
+                ElseIf sourceExtension = ".d2v" Then
+                    Dim dgdecodePath As String = Path.Combine(pluginDir, "DGDecode.dll")
+                    If File.Exists(dgdecodePath) Then
+                        swr.WriteLine("LoadPlugin(""{0}"")", dgdecodePath)
+                    End If
+                    swr.WriteLine("source = DGDecode_MPEG2Source(""{0}"")", filePath)
+                    tfmParameters = String.Format("d2v=""{0}"", {1}", filePath, tfmParameters)
+                Else
+                    Throw New InvalidOperationException("Input is not supported.")
+                End If
+                swr.WriteLine("source.tfm( {1})", filePath, tfmParameters)
+                swr.WriteLine("last+source.tfm( ovr=""{1}.combed"", {2})", filePath, fileName, tfmParameters)
+                swr.WriteLine("last+source.tfm( ovr=""{1}.notcombed"", {2})", filePath, fileName, tfmParameters)
                 For Each code In matchCodes
-                    swr.WriteLine("last+source.tfm(d2v=""{0}"", ovr=""{1}.match_{3}"", {2})", filePath, fileName, tfmParameters, code)
-                    swr.WriteLine("last+source.tfm(d2v=""{0}"", ovr=""{1}.match_{3}_combed"", {2})", filePath, fileName, tfmParameters, code)
-                    swr.WriteLine("last+source.tfm(d2v=""{0}"", ovr=""{1}.match_{3}_notcombed"", {2})", filePath, fileName, tfmParameters, code)
+                    swr.WriteLine("last+source.tfm( ovr=""{1}.match_{3}"", {2})", filePath, fileName, tfmParameters, code)
+                    swr.WriteLine("last+source.tfm( ovr=""{1}.match_{3}_combed"", {2})", filePath, fileName, tfmParameters, code)
+                    swr.WriteLine("last+source.tfm( ovr=""{1}.match_{3}_notcombed"", {2})", filePath, fileName, tfmParameters, code)
                 Next
             End Using
             MyBase.Open(fileName)
