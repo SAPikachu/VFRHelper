@@ -4,6 +4,7 @@ Imports System.Drawing
 Imports System.Text
 Imports SAPStudio.Utils
 Imports SAPStudio.VFRHelper.VideoProviders
+Imports System.Runtime.InteropServices
 
 Public Class MainForm
     Implements IVideoProviderHelper
@@ -194,7 +195,11 @@ Public Class MainForm
             EnableControls()
             Dim videoSize = newProvider.VideoSize
             If Not videoSize.IsEmpty Then
-                Me.Size = New Size(Math.Min(Screen.PrimaryScreen.WorkingArea.Width, Me.Width - picFrame.Width + videoSize.Width), Math.Min(Screen.PrimaryScreen.WorkingArea.Height, Me.Height - picFrame.Height + videoSize.Height))
+                Dim workingArea As Rectangle = Screen.FromControl(Me).WorkingArea
+                Me.Size = New Size(Math.Min(workingArea.Width, Me.Width - picFrame.Width + videoSize.Width), Math.Min(workingArea.Height, Me.Height - picFrame.Height + videoSize.Height))
+                If Me.Right > workingArea.Right OrElse Me.Bottom > workingArea.Bottom Then
+                    Me.CenterToScreen()
+                End If
             End If
         End If
         If _pluginHost IsNot Nothing Then
@@ -270,7 +275,20 @@ Public Class MainForm
 
 
     Dim _prevTrackBarValue As Integer
-    Private Sub TrackBar1_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackBar1.Scroll
+
+    Private Sub TrackBar1_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles TrackBar1.MouseDown
+        Dim channelRect As New RECT
+        Dim thumbRect As New RECT
+        NativeMethods.SendMessage(New HandleRef(Me, TrackBar1.Handle), NativeConstants.TBM_GETCHANNELRECT, IntPtr.Zero, channelRect)
+        NativeMethods.SendMessage(New HandleRef(Me, TrackBar1.Handle), NativeConstants.TBM_GETTHUMBRECT, IntPtr.Zero, thumbRect)
+        Dim thumbWidth = thumbRect.right - thumbRect.left
+        Dim value = CInt((e.X + TrackBar1.ClientRectangle.X - channelRect.left - thumbWidth / 2) / (channelRect.right - channelRect.left - thumbWidth) * (TrackBar1.Maximum - TrackBar1.Minimum + 1) + TrackBar1.Minimum)
+        value = Math.Max(TrackBar1.Minimum, Math.Min(TrackBar1.Maximum, value))
+        TrackBar1.Value = value
+        _videoProvider.SeekTo(value)
+        TrackBar1_Scroll(sender, EventArgs.Empty)
+    End Sub
+    Private Sub TrackBar1_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TrackBar1.Scroll
         If _viewUpdating Then
             _prevTrackBarValue = TrackBar1.Value
             Return

@@ -46,9 +46,9 @@ Partial Class MainForm
         '
         Me.btnOpenTC.AllowDrop = True
         Me.btnOpenTC.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnOpenTC.Location = New System.Drawing.Point(141, 550)
+        Me.btnOpenTC.Location = New System.Drawing.Point(141, 596)
         Me.btnOpenTC.Name = "btnOpenTC"
-        Me.btnOpenTC.Size = New System.Drawing.Size(75, 23)
+        Me.btnOpenTC.Size = New System.Drawing.Size(75, 25)
         Me.btnOpenTC.TabIndex = 0
         Me.btnOpenTC.Text = "Open TC"
         Me.btnOpenTC.UseVisualStyleBackColor = True
@@ -62,18 +62,18 @@ Partial Class MainForm
         '
         Me.NumericUpDown1.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.NumericUpDown1.Enabled = False
-        Me.NumericUpDown1.Location = New System.Drawing.Point(372, 551)
+        Me.NumericUpDown1.Location = New System.Drawing.Point(372, 597)
         Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 21)
+        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 20)
         Me.NumericUpDown1.TabIndex = 1
         '
         'btnOpenVideo
         '
         Me.btnOpenVideo.AllowDrop = True
         Me.btnOpenVideo.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnOpenVideo.Location = New System.Drawing.Point(30, 550)
+        Me.btnOpenVideo.Location = New System.Drawing.Point(30, 596)
         Me.btnOpenVideo.Name = "btnOpenVideo"
-        Me.btnOpenVideo.Size = New System.Drawing.Size(75, 23)
+        Me.btnOpenVideo.Size = New System.Drawing.Size(75, 25)
         Me.btnOpenVideo.TabIndex = 3
         Me.btnOpenVideo.Text = "Open Video"
         Me.btnOpenVideo.UseVisualStyleBackColor = True
@@ -83,9 +83,9 @@ Partial Class MainForm
         Me.picFrame.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picFrame.Location = New System.Drawing.Point(12, 12)
+        Me.picFrame.Location = New System.Drawing.Point(12, 13)
         Me.picFrame.Name = "picFrame"
-        Me.picFrame.Size = New System.Drawing.Size(640, 480)
+        Me.picFrame.Size = New System.Drawing.Size(640, 520)
         Me.picFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picFrame.TabIndex = 5
         Me.picFrame.TabStop = False
@@ -96,20 +96,20 @@ Partial Class MainForm
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrackBar1.AutoSize = False
         Me.TrackBar1.Enabled = False
-        Me.TrackBar1.LargeChange = 50
-        Me.TrackBar1.Location = New System.Drawing.Point(12, 498)
+        Me.TrackBar1.LargeChange = 0
+        Me.TrackBar1.Location = New System.Drawing.Point(12, 540)
         Me.TrackBar1.Name = "TrackBar1"
-        Me.TrackBar1.Size = New System.Drawing.Size(640, 45)
+        Me.TrackBar1.Size = New System.Drawing.Size(640, 49)
         Me.TrackBar1.TabIndex = 6
         Me.TrackBar1.TickStyle = System.Windows.Forms.TickStyle.None
         '
         'txtFrameType
         '
         Me.txtFrameType.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.txtFrameType.Location = New System.Drawing.Point(604, 551)
+        Me.txtFrameType.Location = New System.Drawing.Point(604, 597)
         Me.txtFrameType.Name = "txtFrameType"
         Me.txtFrameType.ReadOnly = True
-        Me.txtFrameType.Size = New System.Drawing.Size(25, 21)
+        Me.txtFrameType.Size = New System.Drawing.Size(25, 20)
         Me.txtFrameType.TabIndex = 7
         '
         'Timer1
@@ -123,11 +123,11 @@ Partial Class MainForm
         Me.txtTimecode.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals
         Me.txtTimecode.Enabled = False
         Me.txtTimecode.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite
-        Me.txtTimecode.Location = New System.Drawing.Point(498, 551)
+        Me.txtTimecode.Location = New System.Drawing.Point(498, 597)
         Me.txtTimecode.Mask = "00:00:00.000"
         Me.txtTimecode.Name = "txtTimecode"
         Me.txtTimecode.PromptChar = Global.Microsoft.VisualBasic.ChrW(48)
-        Me.txtTimecode.Size = New System.Drawing.Size(100, 21)
+        Me.txtTimecode.Size = New System.Drawing.Size(100, 20)
         Me.txtTimecode.TabIndex = 9
         Me.txtTimecode.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals
         '
@@ -138,10 +138,10 @@ Partial Class MainForm
         'tabPlugins
         '
         Me.tabPlugins.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabPlugins.Location = New System.Drawing.Point(3, 17)
+        Me.tabPlugins.Location = New System.Drawing.Point(3, 16)
         Me.tabPlugins.Name = "tabPlugins"
         Me.tabPlugins.SelectedIndex = 0
-        Me.tabPlugins.Size = New System.Drawing.Size(634, 55)
+        Me.tabPlugins.Size = New System.Drawing.Size(634, 62)
         Me.tabPlugins.TabIndex = 10
         '
         'gbPlugins
@@ -149,9 +149,9 @@ Partial Class MainForm
         Me.gbPlugins.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gbPlugins.Controls.Add(Me.tabPlugins)
-        Me.gbPlugins.Location = New System.Drawing.Point(12, 586)
+        Me.gbPlugins.Location = New System.Drawing.Point(12, 635)
         Me.gbPlugins.Name = "gbPlugins"
-        Me.gbPlugins.Size = New System.Drawing.Size(640, 75)
+        Me.gbPlugins.Size = New System.Drawing.Size(640, 81)
         Me.gbPlugins.TabIndex = 11
         Me.gbPlugins.TabStop = False
         Me.gbPlugins.Text = "Plugins"
@@ -161,18 +161,18 @@ Partial Class MainForm
         '
         Me.btnTogglePlugins.AllowDrop = True
         Me.btnTogglePlugins.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.btnTogglePlugins.Location = New System.Drawing.Point(252, 550)
+        Me.btnTogglePlugins.Location = New System.Drawing.Point(252, 596)
         Me.btnTogglePlugins.Name = "btnTogglePlugins"
-        Me.btnTogglePlugins.Size = New System.Drawing.Size(100, 23)
+        Me.btnTogglePlugins.Size = New System.Drawing.Size(100, 25)
         Me.btnTogglePlugins.TabIndex = 12
         Me.btnTogglePlugins.Text = "Load Plugin"
         Me.btnTogglePlugins.UseVisualStyleBackColor = True
         '
         'MainForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(664, 583)
+        Me.ClientSize = New System.Drawing.Size(664, 632)
         Me.Controls.Add(Me.btnTogglePlugins)
         Me.Controls.Add(Me.gbPlugins)
         Me.Controls.Add(Me.txtTimecode)

@@ -50,7 +50,7 @@ Namespace Plugins.ChapterEditor
                 Return
             End If
             _chap.Save(SaveFileDialog1.FileName)
-            Me.Close()
+            '  Me.Close()
         End Sub
         Public Sub Open(ByVal chap As Chapter)
             For Each entry As ChapterEntry In chap.Entries
