@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <mappings>
 	<map key="Space" action="ToggleMatch" />
+	<map key="A" action="SetMatchDefault" />
+	<map key="S" action="SetMatchP" />
+	<map key="D" action="SetMatchC" />
+	<map key="F" action="SetMatchN" />
+	<map key="G" action="SetMatchB" />
+	<map key="H" action="SetMatchU" />
 	<map key="C" action="ToggleCombed" />
 	<map key="Q" action="SetLockRangeStartFrame" />
 	<map key="W" action="SetLockRangeEndFrame" />

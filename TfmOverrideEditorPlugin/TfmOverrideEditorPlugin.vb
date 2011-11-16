@@ -14,9 +14,17 @@ Public Class TfmOverrideEditorPlugin
     Dim _seeking As Boolean = False
     Dim _dirty As Boolean = False
 
+    Private Delegate Function Func(Of R)() As R
+
     Protected Overloads Overrides Sub Initialize()
         RegisterPluginFunction(-1, AddressOf Main)
         RegisterHotKeyAction("ToggleMatch", AddressOf Action_ToggleMatch)
+        RegisterHotKeyAction("SetMatchDefault", Action_SetMatch(Function() _editorForm.rdoMatchNotSpecified))
+        RegisterHotKeyAction("SetMatchP", Action_SetMatch(Function() _editorForm.rdoMatchP))
+        RegisterHotKeyAction("SetMatchC", Action_SetMatch(Function() _editorForm.rdoMatchC))
+        RegisterHotKeyAction("SetMatchN", Action_SetMatch(Function() _editorForm.rdoMatchN))
+        RegisterHotKeyAction("SetMatchB", Action_SetMatch(Function() _editorForm.rdoMatchB))
+        RegisterHotKeyAction("SetMatchU", Action_SetMatch(Function() _editorForm.rdoMatchU))
         RegisterHotKeyAction("ToggleCombed", AddressOf Action_ToggleCombed)
         RegisterHotKeyAction("SetLockRangeStartFrame", AddressOf Action_SetLockRangeStartFrame)
         RegisterHotKeyAction("SetLockRangeEndFrame", AddressOf Action_SetLockRangeEndFrame)
@@ -324,6 +332,12 @@ Public Class TfmOverrideEditorPlugin
             Next
         End If
         Return False
+    End Function
+    Private Function Action_SetMatch(targetGetter As Func(Of RadioButton)) As HotKeyActionDelegate
+        Return Function() As Boolean
+                   targetGetter().Checked = True
+                   Return False
+               End Function
     End Function
     Private Function Action_ToggleCombed() As Boolean
         Select Case _editorForm.chkCombed.CheckState
