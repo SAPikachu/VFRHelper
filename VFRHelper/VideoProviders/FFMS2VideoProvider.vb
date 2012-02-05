@@ -10,22 +10,22 @@ Namespace VideoProviders
     Public Class FFMS2VideoProvider
         Inherits VideoProviderBase
 
-        <System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)> _
-        Public Structure FFMS_ErrorInfo
+        '<System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)> _
+        'Public Structure FFMS_ErrorInfo
 
-            '''int
-            Public ErrorType As FFMS_Errors
+        '    '''int
+        '    Public ErrorType As FFMS_Errors
 
-            '''int
-            Public SubType As Integer
+        '    '''int
+        '    Public SubType As Integer
 
-            '''int
-            Public BufferSize As Integer
+        '    '''int
+        '    Public BufferSize As Integer
 
-            '''char*
-            <System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> _
-            Public Buffer As String
-        End Structure
+        '    '''char*
+        '    <System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.ByValArray, SizeConst:=1000, ArraySubType:=UnmanagedType.U1)> _
+        '    Public Buffer() As Byte
+        'End Structure
 
         Public Enum FFMS_Errors
 
@@ -492,7 +492,7 @@ Namespace VideoProviders
             '''SeekMode: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_CreateVideoSource", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function CreateVideoSource(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal Track As Integer, ByVal Index As System.IntPtr, ByVal Threads As Integer, ByVal SeekMode As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function CreateVideoSource(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal Track As Integer, ByVal Index As System.IntPtr, ByVal Threads As Integer, ByVal SeekMode As Integer, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: FFMS_AudioSource*
@@ -502,7 +502,7 @@ Namespace VideoProviders
             '''DelayMode: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_CreateAudioSource", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function CreateAudioSource(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal Track As Integer, ByVal Index As System.IntPtr, ByVal DelayMode As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function CreateAudioSource(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal Track As Integer, ByVal Index As System.IntPtr, ByVal DelayMode As Integer, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: void
@@ -534,7 +534,7 @@ Namespace VideoProviders
             '''n: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_GetFrame", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function GetFrame(ByVal V As System.IntPtr, ByVal n As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function GetFrame(ByVal V As System.IntPtr, ByVal n As Integer, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: FFMS_Frame*
@@ -542,7 +542,7 @@ Namespace VideoProviders
             '''Time: double
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_GetFrameByTime", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function GetFrameByTime(ByVal V As System.IntPtr, ByVal Time As Double, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function GetFrameByTime(ByVal V As System.IntPtr, ByVal Time As Double, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: int
@@ -552,7 +552,7 @@ Namespace VideoProviders
             '''Count: int64_t->__int64
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_GetAudio", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function GetAudio(ByVal A As System.IntPtr, ByVal Buf As System.IntPtr, ByVal Start As Long, ByVal Count As Long, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function GetAudio(ByVal A As System.IntPtr, ByVal Buf As System.IntPtr, ByVal Start As Long, ByVal Count As Long, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: int
@@ -563,7 +563,7 @@ Namespace VideoProviders
             '''Resizer: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_SetOutputFormatV", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function SetOutputFormatV(ByVal V As System.IntPtr, ByVal TargetFormats As Long, ByVal Width As Integer, ByVal Height As Integer, ByVal Resizer As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function SetOutputFormatV(ByVal V As System.IntPtr, ByVal TargetFormats As Long, ByVal Width As Integer, ByVal Height As Integer, ByVal Resizer As Integer, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: int
@@ -574,11 +574,11 @@ Namespace VideoProviders
             '''Resizer: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_SetOutputFormatV2", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function SetOutputFormatV2(ByVal V As System.IntPtr, ByRef TargetFormats As Integer, ByVal Width As Integer, ByVal Height As Integer, ByVal Resizer As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function SetOutputFormatV2(ByVal V As System.IntPtr, ByRef TargetFormats As Integer, ByVal Width As Integer, ByVal Height As Integer, ByVal Resizer As Integer, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_SetOutputFormatV2", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function SetOutputFormatV2(ByVal V As System.IntPtr, ByRef TargetFormats As Long, ByVal Width As Integer, ByVal Height As Integer, ByVal Resizer As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function SetOutputFormatV2(ByVal V As System.IntPtr, ByRef TargetFormats As Long, ByVal Width As Integer, ByVal Height As Integer, ByVal Resizer As Integer, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: void
@@ -592,7 +592,7 @@ Namespace VideoProviders
             '''PP: char*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_SetPP", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function SetPP(ByVal V As System.IntPtr, <System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal PP As String, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function SetPP(ByVal V As System.IntPtr, <System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal PP As String, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: void
@@ -624,7 +624,7 @@ Namespace VideoProviders
             '''TrackType: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_GetFirstTrackOfType", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function GetFirstTrackOfType(ByVal Index As System.IntPtr, ByVal TrackType As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function GetFirstTrackOfType(ByVal Index As System.IntPtr, ByVal TrackType As Integer, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: int
@@ -632,7 +632,7 @@ Namespace VideoProviders
             '''TrackType: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_GetFirstIndexedTrackOfType", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function GetFirstIndexedTrackOfType(ByVal Index As System.IntPtr, ByVal TrackType As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function GetFirstIndexedTrackOfType(ByVal Index As System.IntPtr, ByVal TrackType As Integer, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: int
@@ -716,7 +716,7 @@ Namespace VideoProviders
             '''TimecodeFile: char*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_WriteTimecodes", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function WriteTimecodes(ByVal T As System.IntPtr, <System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal TimecodeFile As String, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function WriteTimecodes(ByVal T As System.IntPtr, <System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal TimecodeFile As String, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: FFMS_Index*
@@ -730,7 +730,7 @@ Namespace VideoProviders
             '''ICPrivate: void*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_MakeIndex", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function MakeIndex(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal IndexMask As Integer, ByVal DumpMask As Integer, ByVal ANC As TAudioNameCallback, ByVal ANCPrivate As System.IntPtr, ByVal ErrorHandling As Integer, ByVal IC As TIndexCallback, ByVal ICPrivate As System.IntPtr, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function MakeIndex(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal IndexMask As Integer, ByVal DumpMask As Integer, ByVal ANC As TAudioNameCallback, ByVal ANCPrivate As System.IntPtr, ByVal ErrorHandling As Integer, ByVal IC As TIndexCallback, ByVal ICPrivate As System.IntPtr, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: int
@@ -748,7 +748,7 @@ Namespace VideoProviders
             '''SourceFile: char*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_CreateIndexer", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function CreateIndexer(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function CreateIndexer(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: FFMS_Indexer*
@@ -756,7 +756,7 @@ Namespace VideoProviders
             '''Demuxer: int
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_CreateIndexerWithDemuxer", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function CreateIndexerWithDemuxer(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal Demuxer As Integer, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function CreateIndexerWithDemuxer(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal Demuxer As Integer, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: FFMS_Index*
@@ -770,7 +770,7 @@ Namespace VideoProviders
             '''ICPrivate: void*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_DoIndexing", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function DoIndexing(ByVal Indexer As System.IntPtr, ByVal IndexMask As Integer, ByVal DumpMask As Integer, ByVal ANC As TAudioNameCallback, ByVal ANCPrivate As System.IntPtr, ByVal ErrorHandling As Integer, ByVal IC As TIndexCallback, ByVal ICPrivate As System.IntPtr, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function DoIndexing(ByVal Indexer As System.IntPtr, ByVal IndexMask As Integer, ByVal DumpMask As Integer, ByVal ANC As TAudioNameCallback, ByVal ANCPrivate As System.IntPtr, ByVal ErrorHandling As Integer, ByVal IC As TIndexCallback, ByVal ICPrivate As System.IntPtr, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: void
@@ -783,7 +783,7 @@ Namespace VideoProviders
             '''IndexFile: char*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_ReadIndex", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function ReadIndex(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal IndexFile As String, ByRef ErrorInfo As FFMS_ErrorInfo) As System.IntPtr
+            Public Shared Function ReadIndex(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal IndexFile As String, ByVal ErrorInfo As IntPtr) As System.IntPtr
             End Function
 
             '''Return Type: int
@@ -791,7 +791,7 @@ Namespace VideoProviders
             '''SourceFile: char*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_IndexBelongsToFile", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function IndexBelongsToFile(ByVal Index As System.IntPtr, <System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function IndexBelongsToFile(ByVal Index As System.IntPtr, <System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal SourceFile As String, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: int
@@ -799,7 +799,7 @@ Namespace VideoProviders
             '''Index: FFMS_Index*
             '''ErrorInfo: FFMS_ErrorInfo*
             <System.Runtime.InteropServices.DllImportAttribute("ffms2.dll", EntryPoint:="FFMS_WriteIndex", CallingConvention:=System.Runtime.InteropServices.CallingConvention.StdCall)> _
-            Public Shared Function WriteIndex(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal IndexFile As String, ByVal Index As System.IntPtr, ByRef ErrorInfo As FFMS_ErrorInfo) As Integer
+            Public Shared Function WriteIndex(<System.Runtime.InteropServices.InAttribute(), System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.LPStr)> ByVal IndexFile As String, ByVal Index As System.IntPtr, ByVal ErrorInfo As IntPtr) As Integer
             End Function
 
             '''Return Type: int
@@ -851,13 +851,18 @@ Namespace VideoProviders
         Dim _VS As IntPtr
         Dim _currentFrameCache As FFMS_Frame
         Dim _keyFrames As List(Of Integer)
-        Dim _errorInfo As FFMS_ErrorInfo = New FFMS_ErrorInfo With { _
-            .Buffer = New String(" "c, 1000), _
-            .BufferSize = 999
-        }
+        Dim _errorInfo As IntPtr
+        Const ERRORINFO_BUFFER_SIZE As Integer = 2048
 
         Shared Sub New()
             FFMS.Init(0, 0)
+        End Sub
+        Public Sub New()
+            _errorInfo = Marshal.AllocCoTaskMem(ERRORINFO_BUFFER_SIZE)
+            Marshal.WriteInt32(_errorInfo, 0, FFMS_Errors.FFMS_ERROR_SUCCESS)
+            Marshal.WriteInt32(_errorInfo, 4, 0)
+            Marshal.WriteInt32(_errorInfo, 8, ERRORINFO_BUFFER_SIZE - 64)
+            Marshal.WriteIntPtr(_errorInfo, 12, New IntPtr(_errorInfo.ToInt64() + 32))
         End Sub
         Public Overrides ReadOnly Property CurrentFrameType() As FrameType
             Get
@@ -1056,10 +1061,10 @@ Namespace VideoProviders
             NotifyIndexProgress(Current, Total)
         End Function
         Private Sub ThrowException()
-            Throw New FFMSException(String.Format("{0} Type={1}, SubType={2}", _errorInfo.Buffer.Trim, _errorInfo.ErrorType.ToString, _errorInfo.SubType.ToString))
+            Throw New FFMSException(String.Format("{0} Type={1}, SubType={2}", Marshal.PtrToStringAnsi(New IntPtr(_errorInfo.ToInt64() + 32)), CType(Marshal.ReadInt32(_errorInfo), FFMS_Errors).ToString, Marshal.ReadInt32(_errorInfo, 4).ToString))
         End Sub
         Private Sub CheckResult()
-            If _errorInfo.ErrorType <> FFMS_Errors.FFMS_ERROR_SUCCESS Then
+            If Marshal.ReadInt32(_errorInfo) <> FFMS_Errors.FFMS_ERROR_SUCCESS Then
                 Cleanup()
                 ThrowException()
             End If
@@ -1075,7 +1080,8 @@ Namespace VideoProviders
         End Sub
         Protected Overrides Sub Dispose(ByVal disposing As Boolean)
             Cleanup()
-            _errorInfo.BufferSize = 0
+            Marshal.FreeCoTaskMem(_errorInfo)
+            _errorInfo = IntPtr.Zero
             MyBase.Dispose(disposing)
         End Sub
 

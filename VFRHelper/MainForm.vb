@@ -103,45 +103,54 @@ Public Class MainForm
     End Sub
     Sub UpdateView()
         _viewUpdating = True
-        'Dim orgImage As Image = picFrame.Image
-        txtTimecode.Mask = String.Empty
-        Dim bm As Bitmap = Nothing
-        If picFrame.Image IsNot Nothing Then
-            bm = CType(picFrame.Image, Bitmap)
-        End If
-        If _videoProvider Is Nothing Then ' _avi Is Nothing Then
-            picFrame.Image = Nothing
-            txtFrameType.Text = ""
-        Else
-            _videoProvider.GetFrame(bm)
-            picFrame.Image = bm
-            picFrame.Update()
-            Dim currentFrameType As FrameType = _videoProvider.CurrentFrameType
-            If (currentFrameType And FrameType.CustomAsciiChar) = FrameType.CustomAsciiChar Then
-                txtFrameType.Text = String.Format("[{0}]", Encoding.ASCII.GetString(New Byte() {CByte(currentFrameType And &HFF)}))
-            Else
-                Select Case currentFrameType
-                    Case FrameType.Key
-                        txtFrameType.Text = "[K]"
-                    Case FrameType.Normal
-                        txtFrameType.Text = "[ ]"
-                    Case FrameType.Null
-                        txtFrameType.Text = "[D]"
-                End Select
+        Try
+            'Dim orgImage As Image = picFrame.Image
+            txtTimecode.Mask = String.Empty
+            Dim bm As Bitmap = Nothing
+            If picFrame.Image IsNot Nothing Then
+                bm = CType(picFrame.Image, Bitmap)
             End If
-            txtFrameType.Update()
-            'If orgImage IsNot Nothing Then orgImage.Dispose()
-            TrackBar1.Value = _videoProvider.CurrentFrameNumber
-            NumericUpDown1.Value = _videoProvider.CurrentFrameNumber
-            NumericUpDown1.Update()
-            Dim selStart, selLen As Integer
-            selStart = txtTimecode.SelectionStart
-            selLen = txtTimecode.SelectionLength
-            txtTimecode.Text = _videoProvider.GetTimecodeOfCurrentFrame()
-            txtTimecode.Update()
-            txtTimecode.Select(selStart, selLen)
-        End If
-        _viewUpdating = False
+            If _videoProvider Is Nothing Then ' _avi Is Nothing Then
+                picFrame.Image = Nothing
+                txtFrameType.Text = ""
+            Else
+                Try
+                    _videoProvider.GetFrame(bm)
+                Catch ex As Exception
+                    MessageBox.Show(Me, ex.Message, "Unable to decode frame", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End Try
+
+                picFrame.Image = bm
+                picFrame.Update()
+                Dim currentFrameType As FrameType = _videoProvider.CurrentFrameType
+                If (currentFrameType And FrameType.CustomAsciiChar) = FrameType.CustomAsciiChar Then
+                    txtFrameType.Text = String.Format("[{0}]", Encoding.ASCII.GetString(New Byte() {CByte(currentFrameType And &HFF)}))
+                Else
+                    Select Case currentFrameType
+                        Case FrameType.Key
+                            txtFrameType.Text = "[K]"
+                        Case FrameType.Normal
+                            txtFrameType.Text = "[ ]"
+                        Case FrameType.Null
+                            txtFrameType.Text = "[D]"
+                    End Select
+                End If
+                txtFrameType.Update()
+                'If orgImage IsNot Nothing Then orgImage.Dispose()
+                TrackBar1.Value = _videoProvider.CurrentFrameNumber
+                NumericUpDown1.Value = _videoProvider.CurrentFrameNumber
+                NumericUpDown1.Update()
+                Dim selStart, selLen As Integer
+                selStart = txtTimecode.SelectionStart
+                selLen = txtTimecode.SelectionLength
+                txtTimecode.Text = _videoProvider.GetTimecodeOfCurrentFrame()
+                txtTimecode.Update()
+                txtTimecode.Select(selStart, selLen)
+            End If
+        Finally
+            _viewUpdating = False
+        End Try
     End Sub
 
     Sub ShowOpen(ByVal filter As String, ByVal callback As Action(Of String))
