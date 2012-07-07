@@ -336,7 +336,9 @@ Public Class MainForm
         _shortcutManager.RegisterAction("NextFrame", AddressOf Action_NextFrame)
         _shortcutManager.RegisterAction("PrevFrame", AddressOf Action_PrevFrame)
         _shortcutManager.RegisterAction("Benchmark", AddressOf Action_Benchmark)
-        _shortcutManager.RegisterAction("DiscordKey", AddressOf Action_DiscordKey)
+        ' Typo in previous version, keep it for compatibility
+        _shortcutManager.RegisterAction("DiscordKey", AddressOf Action_DiscardKey)
+        _shortcutManager.RegisterAction("DiscardKey", AddressOf Action_DiscardKey)
         _shortcutManager.RegisterAction("JumpToFrame", AddressOf Action_JumpToFrame)
         _shortcutManager.SetDefaultAction(Function() False)
         If Not File.Exists(_keyMappingFilePath) Then
@@ -396,7 +398,7 @@ Public Class MainForm
         Benchmark()
         Return False
     End Function
-    Private Function Action_DiscordKey(ByVal e As System.Windows.Forms.KeyEventArgs) As Boolean
+    Private Function Action_DiscardKey(ByVal e As System.Windows.Forms.KeyEventArgs) As Boolean
         e.SuppressKeyPress = True
         Return False
     End Function
