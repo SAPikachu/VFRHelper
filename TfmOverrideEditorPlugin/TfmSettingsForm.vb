@@ -57,7 +57,7 @@ Public Class TfmSettingsForm
         cboPPMode.SelectedIndex = 1
         cboMicmatching.SelectedIndex = 1
 
-        AddDragHandler(txtD2V, ".d2v|.avs")
+        AddDragHandler(txtD2V, ".d2v|.dga|.dgi|.avs")
         AddDragHandler(txtExistingOverrides, ".txt")
         AddDragHandler(txtTfmAnalysisFile, ".txt")
     End Sub
@@ -140,7 +140,7 @@ Public Class TfmSettingsForm
     End Function
 
     Private Sub btnBrowseD2V_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBrowseD2V.Click
-        Dim fileName = ShowOpen("DGIndex project file(*.d2v)|*.d2v|AVISynth script(*.avs)|*.avs")
+        Dim fileName = ShowOpen("Supported DG projects(*.d2v, *.dga, *.dgi)|*.d2v;*.dga;*.dgi|AVISynth script(*.avs)|*.avs")
         If Not String.IsNullOrEmpty(fileName) Then
             txtD2V.Text = fileName
         End If

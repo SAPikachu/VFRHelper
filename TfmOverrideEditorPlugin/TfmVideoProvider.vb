@@ -268,6 +268,30 @@ Public Class TfmVideoProvider
     Public Overrides Sub Open(ByVal filePath As String)
         Throw New NotImplementedException
     End Sub
+    Private Function GetVideoSourceStatement(filePath As String, pluginDir As String) As String
+        Dim formats As New Dictionary(Of String, String()) From {
+            {".avs", {"Import", ""}},
+            {".d2v", {"DGDecode_MPEG2Source", "DGDecode.dll"}},
+            {".dga", {"AVCSource", "DGAVCDecode.dll"}},
+            {".dgi", {"DGSource", "DGDecodeNV.dll"}}
+        }
+        Dim result As String = ""
+        Dim sourceExtension As String = Path.GetExtension(filePath).ToLowerInvariant()
+        Dim sourceImporter As String() = Nothing
+        If Not formats.TryGetValue(sourceExtension, sourceImporter) Then
+            Throw New InvalidOperationException("Input is not supported.")
+        End If
+        Dim importStatement = sourceImporter(0)
+        Dim sourcePlugin = sourceImporter(1)
+        If sourcePlugin <> "" Then
+            Dim pluginPath As String = Path.Combine(pluginDir, sourcePlugin)
+            If File.Exists(pluginPath) Then
+                result += String.Format("LoadPlugin(""{0}""){1}", pluginPath, vbCrLf)
+            End If
+        End If
+        result += String.Format("{0}(""{1}"")", importStatement, filePath)
+        Return result
+    End Function
     Public Overloads Sub Open(ByVal filePath As String, ByVal tfmParameters As String)
         Dim fileName = Path.GetTempFileName()
         Try
@@ -287,19 +311,7 @@ Public Class TfmVideoProvider
                 If File.Exists(Path.Combine(pluginDir, "TIVTC.dll")) Then
                     swr.WriteLine("LoadPlugin(""{0}"")", Path.Combine(pluginDir, "TIVTC.dll"))
                 End If
-                Dim sourceExtension As String = Path.GetExtension(filePath).ToLowerInvariant()
-                If sourceExtension = ".avs" Then
-                    swr.WriteLine("source = Import(""{0}"")", filePath)
-                ElseIf sourceExtension = ".d2v" Then
-                    Dim dgdecodePath As String = Path.Combine(pluginDir, "DGDecode.dll")
-                    If File.Exists(dgdecodePath) Then
-                        swr.WriteLine("LoadPlugin(""{0}"")", dgdecodePath)
-                    End If
-                    swr.WriteLine("source = DGDecode_MPEG2Source(""{0}"")", filePath)
-                    tfmParameters = String.Format("d2v=""{0}"", {1}", filePath, tfmParameters)
-                Else
-                    Throw New InvalidOperationException("Input is not supported.")
-                End If
+                swr.WriteLine(GetVideoSourceStatement(filePath, pluginDir))
                 swr.WriteLine("source.tfm( {1})", filePath, tfmParameters)
                 swr.WriteLine("last+source.tfm( ovr=""{1}.combed"", {2})", filePath, fileName, tfmParameters)
                 swr.WriteLine("last+source.tfm( ovr=""{1}.notcombed"", {2})", filePath, fileName, tfmParameters)

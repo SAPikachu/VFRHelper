@@ -234,9 +234,9 @@ Partial Class TfmSettingsForm
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(8, 16)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(80, 13)
+        Me.Label1.Size = New System.Drawing.Size(110, 13)
         Me.Label1.TabIndex = 0
-        Me.Label1.Text = "D2V or AVS file"
+        Me.Label1.Text = "DG project or AVS file"
         '
         'tabBasicSettings
         '
