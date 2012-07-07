@@ -13,7 +13,6 @@ Public Class MainForm
     Private Const TIMECODE_MASK As String = "00:00:00.000"
     Dim _videoProvider As VideoProviders.IVideoProvider
     Dim _viewUpdating As Boolean
-    'Dim _chapEditor As ChapterEditorForm
     Dim _aviFN, _tcFN As String
     Dim _shortcutManager As New ShortcutKeyManager(Of Boolean)
     Dim _tempFiles As New List(Of String)
