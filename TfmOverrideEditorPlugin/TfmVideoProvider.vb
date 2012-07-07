@@ -9,6 +9,7 @@ Public Class TfmVideoProvider
     Dim _frameOptions As New SortedDictionary(Of Integer, FrameOption)
     Public Event Seek As EventHandler
     Dim _keyFrames As List(Of Integer)
+    Private Shared ReadOnly _frameNumberRe As New Regex("^\#\s*(?<frameNumber>\d+)\s+(\(\d+\)|[pcnbu])\s*$", RegexOptions.Singleline Or RegexOptions.ExplicitCapture)
     Public Overrides ReadOnly Property CurrentFrameType() As VideoProviders.FrameType
         Get
             If _keyFrames Is Nothing Then Return MyBase.CurrentFrameType
@@ -43,57 +44,42 @@ Public Class TfmVideoProvider
         End If
         Return SeekTo(_keyFrames(index))
     End Function
-    Public Sub ReadTFMAnalysisFile(ByVal filePath As String, ByVal readCombedFrames As Boolean, ByVal readPossiblyCombedFrames As Boolean)
+    Private Sub ReadFrameList(list As IList(Of Integer), sr As StreamReader, header As String)
+        Dim line As String
+        sr.BaseStream.Seek(0, SeekOrigin.Begin)
+        Do
+            line = sr.ReadLine()
+            If sr.EndOfStream Then
+                Return
+            End If
+        Loop Until line.Substring(1).Trim() = header
+        Do
+            line = sr.ReadLine()
+            Dim match = _frameNumberRe.Match(line)
+            If match.Success Then
+                list.Add(Integer.Parse(match.Groups("frameNumber").Value))
+            End If
+        Loop Until line.Substring(1).Trim().StartsWith("[") OrElse sr.EndOfStream
+    End Sub
+    Public Sub ReadTFMAnalysisFile(
+        ByVal filePath As String,
+        ByVal readCombedFrames As Boolean,
+        ByVal readPossiblyCombedFrames As Boolean,
+        ByVal readUBNFrames As Boolean)
         Try
             Using sr = File.OpenText(filePath)
                 If Not sr.ReadLine().StartsWith("#TFM") Then
                     Throw New InvalidDataException("Not a valid TFM analysis file.")
                 End If
                 _keyFrames = New List(Of Integer)
-                Dim line As String
-                Dim re As New Regex("^\#\s*(?<frameNumber>\d+)\s+\(\d+\)\s*$", RegexOptions.Singleline Or RegexOptions.ExplicitCapture)
                 If readCombedFrames Then
-                    Do
-                        line = sr.ReadLine()
-                        If sr.EndOfStream Then
-                            Return
-                        End If
-                    Loop Until line.Substring(1).Trim() = "[COMBED FRAMES]"
-                    Do
-                        line = sr.ReadLine()
-                        If sr.EndOfStream Then
-                            Return
-                        End If
-                    Loop Until line.Substring(1).Trim() = "[Individual Frames]"
-                    sr.ReadLine()
-                    Do
-                        line = sr.ReadLine()
-                        If sr.EndOfStream Then
-                            Return
-                        End If
-                        Dim match = re.Match(line)
-                        If match.Success Then
-                            _keyFrames.Add(Integer.Parse(match.Groups("frameNumber").Value))
-                        End If
-                    Loop Until line.Substring(1).Trim().StartsWith("[")
+                    ReadFrameList(_keyFrames, sr, "[Individual Frames]")
                 End If
                 If readPossiblyCombedFrames Then
-                    Do
-                        line = sr.ReadLine()
-                        If sr.EndOfStream Then
-                            Return
-                        End If
-                    Loop Until line.Substring(1).Trim() = "[POSSIBLE MISSED COMBED FRAMES]"
-                    Do
-                        line = sr.ReadLine()
-                        If sr.EndOfStream Then
-                            Return
-                        End If
-                        Dim match = re.Match(line)
-                        If match.Success Then
-                            _keyFrames.Add(Integer.Parse(match.Groups("frameNumber").Value))
-                        End If
-                    Loop Until line.Substring(1).Trim().StartsWith("[")
+                    ReadFrameList(_keyFrames, sr, "[POSSIBLE MISSED COMBED FRAMES]")
+                End If
+                If readUBNFrames Then
+                    ReadFrameList(_keyFrames, sr, "[u, b, AND AGAINST ORDER (n) MATCHES]")
                 End If
                 _keyFrames.Sort()
             End Using

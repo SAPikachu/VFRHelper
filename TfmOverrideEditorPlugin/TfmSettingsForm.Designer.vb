@@ -22,56 +22,57 @@ Partial Class TfmSettingsForm
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(TfmSettingsForm))
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.tabFile = New System.Windows.Forms.TabPage
-        Me.gbTfmAnalysisFileOption = New System.Windows.Forms.GroupBox
-        Me.chkMarkPossiblyCombedFramesAsKeyFrame = New System.Windows.Forms.CheckBox
-        Me.chkMarkCombedFramesAsKeyFrame = New System.Windows.Forms.CheckBox
-        Me.btnBrowseTfmAnalysisFile = New System.Windows.Forms.Button
-        Me.txtTfmAnalysisFile = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.btnBrowseExistingOverrides = New System.Windows.Forms.Button
-        Me.txtExistingOverrides = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.btnBrowseD2V = New System.Windows.Forms.Button
-        Me.txtD2V = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.tabBasicSettings = New System.Windows.Forms.TabPage
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.cboPPMode = New System.Windows.Forms.ComboBox
-        Me.chkDisplayFrameInfo = New System.Windows.Forms.CheckBox
-        Me.cboFieldOrder = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.cboMode = New System.Windows.Forms.ComboBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.tabAdvancedSettings = New System.Windows.Forms.TabPage
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.txtMthresh = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtMI = New System.Windows.Forms.TextBox
-        Me.txtBlockY = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtBlockX = New System.Windows.Forms.TextBox
-        Me.chkChroma = New System.Windows.Forms.CheckBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtCthresh = New System.Windows.Forms.TextBox
-        Me.chkMmsco = New System.Windows.Forms.CheckBox
-        Me.cboMicmatching = New System.Windows.Forms.ComboBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.chkUbsco = New System.Windows.Forms.CheckBox
-        Me.txtScthresh = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.chkMChroma = New System.Windows.Forms.CheckBox
-        Me.tabParameters = New System.Windows.Forms.TabPage
-        Me.chkUseCustomParams = New System.Windows.Forms.CheckBox
-        Me.txtParams = New System.Windows.Forms.TextBox
-        Me.btnCancel = New System.Windows.Forms.Button
-        Me.btnOK = New System.Windows.Forms.Button
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.tabFile = New System.Windows.Forms.TabPage()
+        Me.gbTfmAnalysisFileOption = New System.Windows.Forms.GroupBox()
+        Me.chkMarkPossiblyCombedFramesAsKeyFrame = New System.Windows.Forms.CheckBox()
+        Me.chkMarkCombedFramesAsKeyFrame = New System.Windows.Forms.CheckBox()
+        Me.btnBrowseTfmAnalysisFile = New System.Windows.Forms.Button()
+        Me.txtTfmAnalysisFile = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.btnBrowseExistingOverrides = New System.Windows.Forms.Button()
+        Me.txtExistingOverrides = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.btnBrowseD2V = New System.Windows.Forms.Button()
+        Me.txtD2V = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tabBasicSettings = New System.Windows.Forms.TabPage()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cboPPMode = New System.Windows.Forms.ComboBox()
+        Me.chkDisplayFrameInfo = New System.Windows.Forms.CheckBox()
+        Me.cboFieldOrder = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.cboMode = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.tabAdvancedSettings = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtMthresh = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtMI = New System.Windows.Forms.TextBox()
+        Me.txtBlockY = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtBlockX = New System.Windows.Forms.TextBox()
+        Me.chkChroma = New System.Windows.Forms.CheckBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtCthresh = New System.Windows.Forms.TextBox()
+        Me.chkMmsco = New System.Windows.Forms.CheckBox()
+        Me.cboMicmatching = New System.Windows.Forms.ComboBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.chkUbsco = New System.Windows.Forms.CheckBox()
+        Me.txtScthresh = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.chkMChroma = New System.Windows.Forms.CheckBox()
+        Me.tabParameters = New System.Windows.Forms.TabPage()
+        Me.chkUseCustomParams = New System.Windows.Forms.CheckBox()
+        Me.txtParams = New System.Windows.Forms.TextBox()
+        Me.btnCancel = New System.Windows.Forms.Button()
+        Me.btnOK = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.chkMarkUBNAsKeyFrame = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tabFile.SuspendLayout()
         Me.gbTfmAnalysisFileOption.SuspendLayout()
@@ -84,8 +85,8 @@ Partial Class TfmSettingsForm
         'TabControl1
         '
         Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.tabFile)
         Me.TabControl1.Controls.Add(Me.tabBasicSettings)
         Me.TabControl1.Controls.Add(Me.tabAdvancedSettings)
@@ -118,6 +119,7 @@ Partial Class TfmSettingsForm
         '
         'gbTfmAnalysisFileOption
         '
+        Me.gbTfmAnalysisFileOption.Controls.Add(Me.chkMarkUBNAsKeyFrame)
         Me.gbTfmAnalysisFileOption.Controls.Add(Me.chkMarkPossiblyCombedFramesAsKeyFrame)
         Me.gbTfmAnalysisFileOption.Controls.Add(Me.chkMarkCombedFramesAsKeyFrame)
         Me.gbTfmAnalysisFileOption.Enabled = False
@@ -133,7 +135,7 @@ Partial Class TfmSettingsForm
         Me.chkMarkPossiblyCombedFramesAsKeyFrame.AutoSize = True
         Me.chkMarkPossiblyCombedFramesAsKeyFrame.Checked = True
         Me.chkMarkPossiblyCombedFramesAsKeyFrame.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkMarkPossiblyCombedFramesAsKeyFrame.Location = New System.Drawing.Point(10, 78)
+        Me.chkMarkPossiblyCombedFramesAsKeyFrame.Location = New System.Drawing.Point(10, 57)
         Me.chkMarkPossiblyCombedFramesAsKeyFrame.Name = "chkMarkPossiblyCombedFramesAsKeyFrame"
         Me.chkMarkPossiblyCombedFramesAsKeyFrame.Size = New System.Drawing.Size(228, 17)
         Me.chkMarkPossiblyCombedFramesAsKeyFrame.TabIndex = 1
@@ -145,7 +147,7 @@ Partial Class TfmSettingsForm
         Me.chkMarkCombedFramesAsKeyFrame.AutoSize = True
         Me.chkMarkCombedFramesAsKeyFrame.Checked = True
         Me.chkMarkCombedFramesAsKeyFrame.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkMarkCombedFramesAsKeyFrame.Location = New System.Drawing.Point(10, 36)
+        Me.chkMarkCombedFramesAsKeyFrame.Location = New System.Drawing.Point(10, 30)
         Me.chkMarkCombedFramesAsKeyFrame.Name = "chkMarkCombedFramesAsKeyFrame"
         Me.chkMarkCombedFramesAsKeyFrame.Size = New System.Drawing.Size(188, 17)
         Me.chkMarkCombedFramesAsKeyFrame.TabIndex = 0
@@ -165,7 +167,7 @@ Partial Class TfmSettingsForm
         'txtTfmAnalysisFile
         '
         Me.txtTfmAnalysisFile.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtTfmAnalysisFile.Location = New System.Drawing.Point(10, 117)
         Me.txtTfmAnalysisFile.Name = "txtTfmAnalysisFile"
         Me.txtTfmAnalysisFile.Size = New System.Drawing.Size(281, 20)
@@ -193,7 +195,7 @@ Partial Class TfmSettingsForm
         'txtExistingOverrides
         '
         Me.txtExistingOverrides.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtExistingOverrides.Location = New System.Drawing.Point(10, 75)
         Me.txtExistingOverrides.Name = "txtExistingOverrides"
         Me.txtExistingOverrides.Size = New System.Drawing.Size(281, 20)
@@ -221,7 +223,7 @@ Partial Class TfmSettingsForm
         'txtD2V
         '
         Me.txtD2V.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtD2V.Location = New System.Drawing.Point(10, 33)
         Me.txtD2V.Name = "txtD2V"
         Me.txtD2V.Size = New System.Drawing.Size(281, 20)
@@ -265,7 +267,7 @@ Partial Class TfmSettingsForm
         'cboPPMode
         '
         Me.cboPPMode.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboPPMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPPMode.FormattingEnabled = True
         Me.cboPPMode.Items.AddRange(New Object() {"0 - nothing (don't even look for combed frames)", "1 - find/hint combed frames but don't deinterlace", "2 - dumb blend deinterlacing", "3 - dumb cubic interpolation deinterlacing", "4 - dumb modified-ela deinterlacing", "5 - motion-adaptive blend deinterlacing", "6 - motion-adaptive cubic interpolation deinterlacing", "7 - motion-adaptive modified-ela deinterlacing"})
@@ -274,7 +276,7 @@ Partial Class TfmSettingsForm
         Me.cboPPMode.Size = New System.Drawing.Size(527, 21)
         Me.cboPPMode.TabIndex = 6
         Me.ToolTip1.SetToolTip(Me.cboPPMode, "Sets the post-processing mode. This controls how TFM should handle (or not handle" & _
-                ")" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "any combed frames that come out of the field matching process.")
+        ")" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "any combed frames that come out of the field matching process.")
         '
         'chkDisplayFrameInfo
         '
@@ -310,11 +312,11 @@ Partial Class TfmSettingsForm
         'cboMode
         '
         Me.cboMode.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cboMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboMode.FormattingEnabled = True
         Me.cboMode.Items.AddRange(New Object() {"0 - 2-way match (p/c)", "1 - 2-way match + 3rd match on combed (p/c + n)", "2 - 2-way match + 3rd match (same order) on combed (p/c + u)", "3 - 2-way match + 3rd match on combed + 4th/5th matches if still combed (p/c + n " & _
-                        "+ u/b)", "4 - 3-way match (p/c/n)", "5 - 3-way match + 4th/5th matches on combed (p/c/n + u/b)", "6 - mode 2 + extras if combed (p/c + u + n + b)", "7 - mode 0 + field switching based on previous matches"})
+                "+ u/b)", "4 - 3-way match (p/c/n)", "5 - 3-way match + 4th/5th matches on combed (p/c/n + u/b)", "6 - mode 2 + extras if combed (p/c + u + n + b)", "7 - mode 0 + field switching based on previous matches"})
         Me.cboMode.Location = New System.Drawing.Point(139, 17)
         Me.cboMode.Name = "cboMode"
         Me.cboMode.Size = New System.Drawing.Size(527, 21)
@@ -350,7 +352,7 @@ Partial Class TfmSettingsForm
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.txtMthresh)
         Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Controls.Add(Me.Label10)
@@ -556,8 +558,8 @@ Partial Class TfmSettingsForm
         'txtParams
         '
         Me.txtParams.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtParams.Location = New System.Drawing.Point(3, 3)
         Me.txtParams.Multiline = True
         Me.txtParams.Name = "txtParams"
@@ -597,6 +599,16 @@ Partial Class TfmSettingsForm
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         Me.OpenFileDialog1.RestoreDirectory = True
+        '
+        'chkMarkUBNAsKeyFrame
+        '
+        Me.chkMarkUBNAsKeyFrame.AutoSize = True
+        Me.chkMarkUBNAsKeyFrame.Location = New System.Drawing.Point(10, 84)
+        Me.chkMarkUBNAsKeyFrame.Name = "chkMarkUBNAsKeyFrame"
+        Me.chkMarkUBNAsKeyFrame.Size = New System.Drawing.Size(207, 17)
+        Me.chkMarkUBNAsKeyFrame.TabIndex = 2
+        Me.chkMarkUBNAsKeyFrame.Text = "Mark u, b and n matches as key frame"
+        Me.chkMarkUBNAsKeyFrame.UseVisualStyleBackColor = True
         '
         'TfmSettingsForm
         '
@@ -674,4 +686,5 @@ Partial Class TfmSettingsForm
     Friend WithEvents gbTfmAnalysisFileOption As System.Windows.Forms.GroupBox
     Friend WithEvents chkMarkCombedFramesAsKeyFrame As System.Windows.Forms.CheckBox
     Friend WithEvents chkMarkPossiblyCombedFramesAsKeyFrame As System.Windows.Forms.CheckBox
+    Friend WithEvents chkMarkUBNAsKeyFrame As System.Windows.Forms.CheckBox
 End Class

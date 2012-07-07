@@ -43,7 +43,11 @@ Public Class TfmOverrideEditorPlugin
         Host.VideoProvider = _provider
         If _settingsForm.txtTfmAnalysisFile.Text <> "" Then
             Try
-                _provider.ReadTFMAnalysisFile(_settingsForm.txtTfmAnalysisFile.Text, _settingsForm.chkMarkCombedFramesAsKeyFrame.Checked, _settingsForm.chkMarkPossiblyCombedFramesAsKeyFrame.Checked)
+                _provider.ReadTFMAnalysisFile(
+                    _settingsForm.txtTfmAnalysisFile.Text,
+                    _settingsForm.chkMarkCombedFramesAsKeyFrame.Checked,
+                    _settingsForm.chkMarkPossiblyCombedFramesAsKeyFrame.Checked,
+                    _settingsForm.chkMarkUBNAsKeyFrame.Checked)
             Catch ex As Exception
                 _settingsForm.txtTfmAnalysisFile.Text = ""
                 MessageBox.Show(ex.Message, "TFM Overrides Editor", MessageBoxButtons.OK, MessageBoxIcon.Warning)
