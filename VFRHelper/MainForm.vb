@@ -536,20 +536,48 @@ Public Class MainForm
     End Property
 
     Sub UpdateFramePosition()
+        UpdateFramePosition(Point.Empty)
+    End Sub
+    Sub UpdateFramePosition(delta As Point)
         If FrameSizeMode = FrameSizeMode.Stretched Then
             Return
         End If
         panFrameContainer.SuspendLayout()
         If picFrame.Width < panFrameContainer.Width Then
             picFrame.Left = (panFrameContainer.Width - picFrame.Width) \ 2
+        Else
+            picFrame.Left = Math.Max(panFrameContainer.Width - picFrame.Width, Math.Min(0, picFrame.Left + delta.X))
         End If
         If picFrame.Height < panFrameContainer.Height Then
             picFrame.Top = (panFrameContainer.Height - picFrame.Height) \ 2
+        Else
+            picFrame.Top = Math.Max(panFrameContainer.Height - picFrame.Height, Math.Min(0, picFrame.Top + delta.Y))
         End If
         panFrameContainer.ResumeLayout()
     End Sub
 
     Private Sub MainForm_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
         UpdateFramePosition()
+    End Sub
+
+    Dim _lastMousePosition As Point?
+    Private Sub picFrame_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles picFrame.MouseDown
+        If FrameSizeMode = VFRHelper.FrameSizeMode.Original And e.Button = Windows.Forms.MouseButtons.Left Then
+            _lastMousePosition = picFrame.PointToScreen(e.Location)
+            picFrame.Capture = True
+        End If
+    End Sub
+
+    Private Sub picFrame_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles picFrame.MouseUp
+        _lastMousePosition = Nothing
+        picFrame.Capture = False
+    End Sub
+
+    Private Sub picFrame_MouseMove(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles picFrame.MouseMove
+        If _lastMousePosition.HasValue Then
+            Dim newLocation = picFrame.PointToScreen(e.Location)
+            UpdateFramePosition(newLocation - New Size(_lastMousePosition.Value))
+            _lastMousePosition = newLocation
+        End If
     End Sub
 End Class
