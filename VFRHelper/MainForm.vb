@@ -19,6 +19,8 @@ Public Class MainForm
 
     Dim _pluginHost As PluginHost
 
+    Dim _frameTipShown As Boolean = False
+
     Sub SetTitle()
         Dim builder As New StringBuilder
         builder.Append(My.Application.Info.ProductName)
@@ -207,6 +209,10 @@ Public Class MainForm
                 Me.Size = New Size(Math.Min(workingArea.Width, Me.Width - picFrame.Width + videoSize.Width), Math.Min(workingArea.Height, Me.Height - picFrame.Height + videoSize.Height))
                 If Me.Right > workingArea.Right OrElse Me.Bottom > workingArea.Bottom Then
                     Me.CenterToScreen()
+                End If
+                If Not _frameTipShown Then
+                    ToolTip.Show(ToolTip.GetToolTip(picFrame), picFrame, ToolTip.AutoPopDelay)
+                    _frameTipShown = True
                 End If
             End If
         End If

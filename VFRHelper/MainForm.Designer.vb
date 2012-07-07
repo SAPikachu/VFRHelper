@@ -37,6 +37,7 @@ Partial Class MainForm
         Me.gbPlugins = New System.Windows.Forms.GroupBox()
         Me.btnTogglePlugins = New System.Windows.Forms.Button()
         Me.panFrameContainer = New System.Windows.Forms.Panel()
+        Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picFrame, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -89,6 +90,7 @@ Partial Class MainForm
         Me.picFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.picFrame.TabIndex = 5
         Me.picFrame.TabStop = False
+        Me.ToolTip.SetToolTip(Me.picFrame, "Double click to switch between stretched and original image")
         '
         'TrackBar1
         '
@@ -179,6 +181,13 @@ Partial Class MainForm
         Me.panFrameContainer.Size = New System.Drawing.Size(640, 520)
         Me.panFrameContainer.TabIndex = 13
         '
+        'ToolTip
+        '
+        Me.ToolTip.AutoPopDelay = 5000
+        Me.ToolTip.InitialDelay = 32767
+        Me.ToolTip.IsBalloon = True
+        Me.ToolTip.ReshowDelay = 100
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -220,5 +229,6 @@ Partial Class MainForm
     Friend WithEvents gbPlugins As System.Windows.Forms.GroupBox
     Friend WithEvents btnTogglePlugins As System.Windows.Forms.Button
     Friend WithEvents panFrameContainer As System.Windows.Forms.Panel
+    Friend WithEvents ToolTip As System.Windows.Forms.ToolTip
 
 End Class
