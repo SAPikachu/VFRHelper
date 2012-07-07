@@ -4,11 +4,16 @@
 	<map key="Right" action="NextKeyFrame" />
 	<map key="Left" shift="true" action="PrevFrame" />
 	<map key="Right" shift="true" action="NextFrame" />
+	<map key="Up" ctrl="true" action="MoveFrameViewPortUp"/>
+	<map key="Down" ctrl="true" action="MoveFrameViewPortDown"/>
+	<map key="Left" ctrl="true" action="MoveFrameViewPortLeft"/>
+	<map key="Right" ctrl="true" action="MoveFrameViewPortRight"/>
+	<map key="Space" shift="true" action="SwitchFrameSizeMode"/>
 	<map key="Space" action="ChapterSetTimecode" />
 	<map key="F12" action="Benchmark" />
 	<map key="Up" action="ChapterListMoveUp" />
 	<map key="Down" action="ChapterListMoveDown" />
-	<map key="Home" action="DiscordKey" />
-	<map key="End" action="DiscordKey" />
+	<map key="Home" action="DiscardKey" />
+	<map key="End" action="DiscardKey" />
 	<map key="G" ctrl="true" action="JumpToFrame" />
 </mappings>

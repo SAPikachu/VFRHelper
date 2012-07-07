@@ -340,6 +340,11 @@ Public Class MainForm
         _shortcutManager.RegisterAction("DiscordKey", AddressOf Action_DiscardKey)
         _shortcutManager.RegisterAction("DiscardKey", AddressOf Action_DiscardKey)
         _shortcutManager.RegisterAction("JumpToFrame", AddressOf Action_JumpToFrame)
+        _shortcutManager.RegisterAction("SwitchFrameSizeMode", AddressOf Action_SwitchFrameSizeMode)
+        _shortcutManager.RegisterAction("MoveFrameViewPortUp", ActionClosure_MoveFrame(New Point(0, 1)))
+        _shortcutManager.RegisterAction("MoveFrameViewPortDown", ActionClosure_MoveFrame(New Point(0, -1)))
+        _shortcutManager.RegisterAction("MoveFrameViewPortLeft", ActionClosure_MoveFrame(New Point(1, 0)))
+        _shortcutManager.RegisterAction("MoveFrameViewPortRight", ActionClosure_MoveFrame(New Point(-1, 0)))
         _shortcutManager.SetDefaultAction(Function() False)
         If Not File.Exists(_keyMappingFilePath) Then
             WriteDefaultKeyMappingFile()
@@ -403,6 +408,19 @@ Public Class MainForm
         Return False
     End Function
 
+    Private Function ActionClosure_MoveFrame(deltaMultiplier As Point) As ShortcutKeyManager(Of Boolean).Action
+        Return Function(e As KeyEventArgs) As Boolean
+                   e.SuppressKeyPress = True
+                   UpdateFramePosition(New Point((panFrameContainer.Width \ 2) * deltaMultiplier.X,
+                                                 (panFrameContainer.Height \ 2) * deltaMultiplier.Y))
+                   Return False
+               End Function
+    End Function
+    Private Function Action_SwitchFrameSizeMode(e As KeyEventArgs) As Boolean
+        e.SuppressKeyPress = True
+        SwitchFrameSizeMode()
+        Return False
+    End Function
 #End Region
     Private Sub Form1_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         If _shortcutManager.ProcessKeyEvent(e) Then
@@ -432,8 +450,11 @@ Public Class MainForm
         Return True
     End Function
 
-    Private Sub picFrame_DoubleClick(sender As Object, e As System.EventArgs) Handles picFrame.DoubleClick
+    Private Sub SwitchFrameSizeMode()
         FrameSizeMode = If(FrameSizeMode = FrameSizeMode.Stretched, FrameSizeMode.Original, FrameSizeMode.Stretched)
+    End Sub
+    Private Sub picFrame_DoubleClick(sender As Object, e As System.EventArgs) Handles picFrame.DoubleClick
+        SwitchFrameSizeMode()
     End Sub
     Private Sub picFrame_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles picFrame.DragEnter
         If (e.AllowedEffect And DragDropEffects.Copy) = DragDropEffects.Copy AndAlso e.Data.GetDataPresent(DataFormats.FileDrop) Then
