@@ -289,7 +289,7 @@ Public Class TfmVideoProvider
                 result += String.Format("LoadPlugin(""{0}""){1}", pluginPath, vbCrLf)
             End If
         End If
-        result += String.Format("{0}(""{1}"")", importStatement, filePath)
+        result += String.Format("source = {0}(""{1}"")", importStatement, filePath)
         Return result
     End Function
     Public Overloads Sub Open(ByVal filePath As String, ByVal tfmParameters As String)
