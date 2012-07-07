@@ -33,6 +33,18 @@ Public Class EditorForm
         End If
         _plugin.SetFrameOptionCurrentFrame()
     End Sub
+    Public Function GetSelectedMatchCode() As String
+        If rdoMatchNotSpecified.Checked Then
+            Return String.Empty
+        End If
+        For Each rdoBox In _matchRadioBoxes
+            If rdoBox.Checked Then
+                Return rdoBox.Name.Substring(rdoBox.Name.Length - 1, 1).ToLower()
+            End If
+        Next
+        Debug.Fail("All boxes are unselected")
+        Return ""
+    End Function
     Public Function GetCombedStatusFromCheckBox(ByVal cb As CheckBox) As Boolean?
         Dim combed As Boolean?
         Select Case cb.CheckState
@@ -47,6 +59,9 @@ Public Class EditorForm
     End Function
     Public Sub RefreshListBoxDataSource()
         CType(lstOverrideEntries.BindingContext(lstOverrideEntries.DataSource), CurrencyManager).Refresh()
+    End Sub
+    Public Sub SetFrameInfo(info As String)
+        lblFrameInfo.Text = info
     End Sub
 
     Private Sub txtFrameRangeStart_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtFrameRangeStart.Validating, txtFrameRangeEnd.Validating

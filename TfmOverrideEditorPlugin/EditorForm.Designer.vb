@@ -46,8 +46,11 @@ Partial Class EditorForm
         Me.txtFrameRangeStart = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnSettings = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblFrameInfo = New System.Windows.Forms.Label()
         Me.gbMatch.SuspendLayout()
         Me.gbFrameRange.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lstOverrideEntries
@@ -58,7 +61,7 @@ Partial Class EditorForm
         Me.lstOverrideEntries.FormattingEnabled = True
         Me.lstOverrideEntries.Location = New System.Drawing.Point(12, 13)
         Me.lstOverrideEntries.Name = "lstOverrideEntries"
-        Me.lstOverrideEntries.Size = New System.Drawing.Size(180, 134)
+        Me.lstOverrideEntries.Size = New System.Drawing.Size(180, 290)
         Me.lstOverrideEntries.TabIndex = 0
         Me.ToolTip1.SetToolTip(Me.lstOverrideEntries, "Double click to remove selected entry")
         '
@@ -72,7 +75,7 @@ Partial Class EditorForm
         Me.gbMatch.Controls.Add(Me.rdoMatchC)
         Me.gbMatch.Controls.Add(Me.rdoMatchP)
         Me.gbMatch.Controls.Add(Me.rdoMatchNotSpecified)
-        Me.gbMatch.Location = New System.Drawing.Point(12, 154)
+        Me.gbMatch.Location = New System.Drawing.Point(12, 413)
         Me.gbMatch.Name = "gbMatch"
         Me.gbMatch.Size = New System.Drawing.Size(180, 77)
         Me.gbMatch.TabIndex = 1
@@ -84,7 +87,7 @@ Partial Class EditorForm
         Me.rdoMatchU.AutoSize = True
         Me.rdoMatchU.Location = New System.Drawing.Point(146, 46)
         Me.rdoMatchU.Name = "rdoMatchU"
-        Me.rdoMatchU.Size = New System.Drawing.Size(31, 18)
+        Me.rdoMatchU.Size = New System.Drawing.Size(31, 17)
         Me.rdoMatchU.TabIndex = 5
         Me.rdoMatchU.Text = "u"
         Me.ToolTip1.SetToolTip(Me.rdoMatchU, "Match to next field (opposite parity)")
@@ -95,7 +98,7 @@ Partial Class EditorForm
         Me.rdoMatchB.AutoSize = True
         Me.rdoMatchB.Location = New System.Drawing.Point(111, 46)
         Me.rdoMatchB.Name = "rdoMatchB"
-        Me.rdoMatchB.Size = New System.Drawing.Size(31, 18)
+        Me.rdoMatchB.Size = New System.Drawing.Size(31, 17)
         Me.rdoMatchB.TabIndex = 4
         Me.rdoMatchB.Text = "b"
         Me.ToolTip1.SetToolTip(Me.rdoMatchB, "Match to previous field (opposite parity)")
@@ -106,7 +109,7 @@ Partial Class EditorForm
         Me.rdoMatchN.AutoSize = True
         Me.rdoMatchN.Location = New System.Drawing.Point(76, 46)
         Me.rdoMatchN.Name = "rdoMatchN"
-        Me.rdoMatchN.Size = New System.Drawing.Size(31, 18)
+        Me.rdoMatchN.Size = New System.Drawing.Size(31, 17)
         Me.rdoMatchN.TabIndex = 3
         Me.rdoMatchN.Text = "n"
         Me.ToolTip1.SetToolTip(Me.rdoMatchN, "Match to next field")
@@ -117,7 +120,7 @@ Partial Class EditorForm
         Me.rdoMatchC.AutoSize = True
         Me.rdoMatchC.Location = New System.Drawing.Point(41, 46)
         Me.rdoMatchC.Name = "rdoMatchC"
-        Me.rdoMatchC.Size = New System.Drawing.Size(31, 18)
+        Me.rdoMatchC.Size = New System.Drawing.Size(31, 17)
         Me.rdoMatchC.TabIndex = 2
         Me.rdoMatchC.Text = "c"
         Me.ToolTip1.SetToolTip(Me.rdoMatchC, "Match to current field")
@@ -128,7 +131,7 @@ Partial Class EditorForm
         Me.rdoMatchP.AutoSize = True
         Me.rdoMatchP.Location = New System.Drawing.Point(6, 46)
         Me.rdoMatchP.Name = "rdoMatchP"
-        Me.rdoMatchP.Size = New System.Drawing.Size(31, 18)
+        Me.rdoMatchP.Size = New System.Drawing.Size(31, 17)
         Me.rdoMatchP.TabIndex = 1
         Me.rdoMatchP.Text = "p"
         Me.ToolTip1.SetToolTip(Me.rdoMatchP, "Match to previous field")
@@ -140,7 +143,7 @@ Partial Class EditorForm
         Me.rdoMatchNotSpecified.Checked = True
         Me.rdoMatchNotSpecified.Location = New System.Drawing.Point(6, 22)
         Me.rdoMatchNotSpecified.Name = "rdoMatchNotSpecified"
-        Me.rdoMatchNotSpecified.Size = New System.Drawing.Size(59, 18)
+        Me.rdoMatchNotSpecified.Size = New System.Drawing.Size(59, 17)
         Me.rdoMatchNotSpecified.TabIndex = 0
         Me.rdoMatchNotSpecified.TabStop = True
         Me.rdoMatchNotSpecified.Text = "Default"
@@ -154,7 +157,7 @@ Partial Class EditorForm
         Me.chkCombed.AutoSize = True
         Me.chkCombed.Checked = True
         Me.chkCombed.CheckState = System.Windows.Forms.CheckState.Indeterminate
-        Me.chkCombed.Location = New System.Drawing.Point(18, 237)
+        Me.chkCombed.Location = New System.Drawing.Point(18, 496)
         Me.chkCombed.Name = "chkCombed"
         Me.chkCombed.Size = New System.Drawing.Size(65, 17)
         Me.chkCombed.TabIndex = 2
@@ -176,7 +179,7 @@ Partial Class EditorForm
         Me.gbFrameRange.Controls.Add(Me.btnApplyRange)
         Me.gbFrameRange.Controls.Add(Me.txtFrameRangeEnd)
         Me.gbFrameRange.Controls.Add(Me.txtFrameRangeStart)
-        Me.gbFrameRange.Location = New System.Drawing.Point(12, 269)
+        Me.gbFrameRange.Location = New System.Drawing.Point(12, 528)
         Me.gbFrameRange.Name = "gbFrameRange"
         Me.gbFrameRange.Size = New System.Drawing.Size(180, 169)
         Me.gbFrameRange.TabIndex = 4
@@ -208,7 +211,7 @@ Partial Class EditorForm
         Me.chkRangeCombed.CheckState = System.Windows.Forms.CheckState.Indeterminate
         Me.chkRangeCombed.Location = New System.Drawing.Point(8, 109)
         Me.chkRangeCombed.Name = "chkRangeCombed"
-        Me.chkRangeCombed.Size = New System.Drawing.Size(65, 18)
+        Me.chkRangeCombed.Size = New System.Drawing.Size(65, 17)
         Me.chkRangeCombed.TabIndex = 3
         Me.chkRangeCombed.Text = "Combed"
         Me.chkRangeCombed.ThreeState = True
@@ -281,7 +284,7 @@ Partial Class EditorForm
         '
         Me.btnSave.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(18, 444)
+        Me.btnSave.Location = New System.Drawing.Point(18, 703)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(75, 25)
         Me.btnSave.TabIndex = 5
@@ -292,18 +295,38 @@ Partial Class EditorForm
         '
         Me.btnSettings.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSettings.Location = New System.Drawing.Point(112, 444)
+        Me.btnSettings.Location = New System.Drawing.Point(112, 703)
         Me.btnSettings.Name = "btnSettings"
         Me.btnSettings.Size = New System.Drawing.Size(75, 25)
         Me.btnSettings.TabIndex = 6
         Me.btnSettings.Text = "Settings"
         Me.btnSettings.UseVisualStyleBackColor = True
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.lblFrameInfo)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 312)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(180, 95)
+        Me.GroupBox1.TabIndex = 7
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Info"
+        '
+        'lblFrameInfo
+        '
+        Me.lblFrameInfo.Location = New System.Drawing.Point(3, 16)
+        Me.lblFrameInfo.Name = "lblFrameInfo"
+        Me.lblFrameInfo.Size = New System.Drawing.Size(171, 76)
+        Me.lblFrameInfo.TabIndex = 0
+        '
         'EditorForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(204, 482)
+        Me.ClientSize = New System.Drawing.Size(204, 741)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnSettings)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.gbFrameRange)
@@ -318,6 +341,7 @@ Partial Class EditorForm
         Me.gbMatch.PerformLayout()
         Me.gbFrameRange.ResumeLayout(False)
         Me.gbFrameRange.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -345,4 +369,6 @@ Partial Class EditorForm
     Friend WithEvents chkRangeCombed As System.Windows.Forms.CheckBox
     Friend WithEvents btnSetRangeEnd As System.Windows.Forms.Button
     Friend WithEvents btnSetRangeStart As System.Windows.Forms.Button
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents lblFrameInfo As System.Windows.Forms.Label
 End Class

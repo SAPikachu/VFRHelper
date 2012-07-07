@@ -223,6 +223,9 @@ Public Class TfmVideoProvider
     'End Sub
 
     Public Sub SetCurrentFrameOption(ByVal matchCode As String, ByVal combed As Boolean?)
+        If matchCode = "" Then
+            matchCode = Nothing
+        End If
         Debug.Assert(matchCode Is Nothing OrElse matchCode.Length = 1)
         Dim [option] As FrameOption = If(_frameOptions.ContainsKey(CurrentFrameNumber), _frameOptions(CurrentFrameNumber), New FrameOption)
         [option].MatchCode = matchCode

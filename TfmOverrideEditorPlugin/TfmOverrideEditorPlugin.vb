@@ -10,6 +10,7 @@ Public Class TfmOverrideEditorPlugin
     Dim _settingsForm As TfmSettingsForm
     Dim _editorForm As EditorForm
     Dim WithEvents _provider As TfmVideoProvider
+    Dim WithEvents _frameInfo As TfmFrameInfoManager
     Dim _frameOptionGroups As List(Of FrameOptionGroup)
     Dim _seeking As Boolean = False
     Dim _dirty As Boolean = False
@@ -52,6 +53,11 @@ Public Class TfmOverrideEditorPlugin
                 _settingsForm.txtTfmAnalysisFile.Text = ""
                 MessageBox.Show(ex.Message, "TFM Overrides Editor", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End Try
+        End If
+        If _frameInfo Is Nothing Then
+            _frameInfo = New TfmFrameInfoManager
+        Else
+            _frameInfo.ClearCache()
         End If
     End Sub
     Private Sub Main()
@@ -132,6 +138,10 @@ Public Class TfmOverrideEditorPlugin
                 Host.VideoProvider = Nothing
             End If
             _provider = Nothing
+            If _frameInfo IsNot Nothing Then
+                _frameInfo.Dispose()
+                _frameInfo = Nothing
+            End If
         End If
         MyBase.Dispose(disposing)
     End Sub
@@ -167,6 +177,7 @@ Public Class TfmOverrideEditorPlugin
             End If
         End If
         _seeking = False
+        UpdateFrameInfo()
     End Sub
 
     Public Sub SetFrameOptionCurrentFrame()
@@ -175,15 +186,7 @@ Public Class TfmOverrideEditorPlugin
         End If
         Dim combed As Boolean?
         combed = _editorForm.GetCombedStatusFromCheckBox(_editorForm.chkCombed)
-        Dim matchCode As String = Nothing
-        If Not _editorForm.rdoMatchNotSpecified.Checked Then
-            For Each rdoBox In _editorForm._matchRadioBoxes
-                If rdoBox.Checked Then
-                    matchCode = rdoBox.Name.Substring(rdoBox.Name.Length - 1, 1).ToLower()
-                    Exit For
-                End If
-            Next
-        End If
+        Dim matchCode As String = _editorForm.GetSelectedMatchCode()
         Dim currentFrame As Integer = _provider.CurrentFrameNumber
         Dim optionGroup = _frameOptionGroups.Find(Function(og) og.Start <= currentFrame AndAlso og.End >= currentFrame)
         If optionGroup Is Nothing Then
@@ -201,6 +204,7 @@ Public Class TfmOverrideEditorPlugin
         _provider.SetCurrentFrameOption(matchCode, combed)
         Host.UpdateView()
         Host.ActivateMainWindow()
+        UpdateFrameInfo()
         _dirty = True
     End Sub
     Public Sub SetFrameOptionFrameRange()
@@ -393,4 +397,12 @@ Public Class TfmOverrideEditorPlugin
         _editorForm.txtFrameRangeEnd.Text = Host.VideoProvider.CurrentFrameNumber.ToString()
         Return False
     End Function
+
+    Sub UpdateFrameInfo()
+        _editorForm.SetFrameInfo(_frameInfo.GetFrameInfo(_provider.CurrentFrameNumber, _editorForm.GetSelectedMatchCode(), _editorForm.GetCombedStatusFromCheckBox(_editorForm.chkCombed)))
+    End Sub
+
+    Private Sub _frameInfo_FrameInfoUpdated(sender As Object, e As System.EventArgs) Handles _frameInfo.FrameInfoUpdated
+        _editorForm.BeginInvoke(New MethodInvoker(AddressOf UpdateFrameInfo))
+    End Sub
 End Class

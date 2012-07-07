@@ -105,7 +105,7 @@ Public NotInheritable Class DebugMonitor
     Private Shared Function SetSecurityDescriptorDacl(ByRef sd As SECURITY_DESCRIPTOR, ByVal daclPresent As Boolean, ByVal dacl As IntPtr, ByVal daclDefaulted As Boolean) As Boolean
     End Function
 
-    <DllImport("kernel32.dll")> _
+    <DllImport("kernel32.dll", SetLastError:=True)> _
     Private Shared Function CreateEvent(ByRef sa As SECURITY_ATTRIBUTES, ByVal bManualReset As Boolean, ByVal bInitialState As Boolean, ByVal lpName As String) As IntPtr
     End Function
 
@@ -118,7 +118,11 @@ Public NotInheritable Class DebugMonitor
     End Function
 
     <DllImport("kernel32.dll", SetLastError:=True)> _
-    Private Shared Function CreateFileMapping(ByVal hFile As IntPtr, ByRef lpFileMappingAttributes As SECURITY_ATTRIBUTES, ByVal flProtect As PageProtection, ByVal dwMaximumSizeHigh As UInteger, ByVal dwMaximumSizeLow As UInteger, ByVal lpName As String) As IntPtr
+    Private Shared Function CreateFileMapping(ByVal hFile As IntPtr, lpFileMappingAttributes As IntPtr, ByVal flProtect As PageProtection, ByVal dwMaximumSizeHigh As UInteger, ByVal dwMaximumSizeLow As UInteger, ByVal lpName As String) As IntPtr
+    End Function
+
+    <DllImport("kernel32.dll", SetLastError:=True)> _
+    Private Shared Function OpenFileMapping(ByVal dwDesiredAccess As UInteger, bInheritHandle As Boolean, ByVal lpName As String) As IntPtr
     End Function
 
     <DllImport("kernel32.dll", SetLastError:=True)> _
@@ -136,12 +140,12 @@ Public NotInheritable Class DebugMonitor
     ''' <summary>
     ''' Event handle for slot 'DBWIN_BUFFER_READY'
     ''' </summary>
-    Private Shared m_AckEvent As IntPtr = IntPtr.Zero
+    Private Shared m_AckEvent As EventWaitHandle
 
     ''' <summary>
     ''' Event handle for slot 'DBWIN_DATA_READY'
     ''' </summary>
-    Private Shared m_ReadyEvent As IntPtr = IntPtr.Zero
+    Private Shared m_ReadyEvent As EventWaitHandle
 
     ''' <summary>
     ''' Handle for our shared file
@@ -164,11 +168,6 @@ Public NotInheritable Class DebugMonitor
     Private Shared m_SyncRoot As New Object()
 
     ''' <summary>
-    ''' Mutex for singleton check
-    ''' </summary>
-    Private Shared m_Mutex As Mutex = Nothing
-
-    ''' <summary>
     ''' Starts this debug monitor
     ''' </summary>
     Public Shared Sub Start()
@@ -183,47 +182,21 @@ Public NotInheritable Class DebugMonitor
                 Throw New NotSupportedException("This DebugMonitor is only supported on Microsoft operating systems.")
             End If
 
-            ' Check for multiple instances. As the README.TXT of the msdn 
-            ' example notes it is possible to have multiple debug monitors
-            ' listen on OutputDebugString, but the message will be randomly
-            ' distributed among all running instances so this won't be
-            ' such a good idea.				
-            Dim createdNew As Boolean = False
-            m_Mutex = New Mutex(False, GetType(DebugMonitor).[Namespace], createdNew)
-            If Not createdNew Then
-                Throw New ApplicationException("There is already an instance of 'DbMon.NET' running.")
-            End If
-
-            Dim sd As New SECURITY_DESCRIPTOR()
-
-            ' Initialize the security descriptor.
-            If Not InitializeSecurityDescriptor(sd, SECURITY_DESCRIPTOR_REVISION) Then
-                Throw CreateApplicationException("Failed to initializes the security descriptor.")
-            End If
-
-            ' Set information in a discretionary access control list
-            If Not SetSecurityDescriptorDacl(sd, True, IntPtr.Zero, False) Then
-                Throw CreateApplicationException("Failed to initializes the security descriptor")
-            End If
-
-            Dim sa As New SECURITY_ATTRIBUTES()
+            Dim createdNew As Boolean
 
             ' Create the event for slot 'DBWIN_BUFFER_READY'
-            m_AckEvent = CreateEvent(sa, False, False, "DBWIN_BUFFER_READY")
-            If m_AckEvent = IntPtr.Zero Then
-                Throw CreateApplicationException("Failed to create event 'DBWIN_BUFFER_READY'")
-            End If
+            m_AckEvent = New EventWaitHandle(False, EventResetMode.AutoReset, "DBWIN_BUFFER_READY", createdNew)
 
             ' Create the event for slot 'DBWIN_DATA_READY'
-            m_ReadyEvent = CreateEvent(sa, False, False, "DBWIN_DATA_READY")
-            If m_ReadyEvent = IntPtr.Zero Then
-                Throw CreateApplicationException("Failed to create event 'DBWIN_DATA_READY'")
-            End If
+            m_ReadyEvent = New EventWaitHandle(False, EventResetMode.AutoReset, "DBWIN_DATA_READY", createdNew)
 
             ' Get a handle to the readable shared memory at slot 'DBWIN_BUFFER'.
-            m_SharedFile = CreateFileMapping(New IntPtr(-1), sa, PageProtection.ReadWrite, 0, 4096, "DBWIN_BUFFER")
+            m_SharedFile = OpenFileMapping(SECTION_MAP_READ, False, "DBWIN_BUFFER")
             If m_SharedFile = IntPtr.Zero Then
-                Throw CreateApplicationException("Failed to create a file mapping to slot 'DBWIN_BUFFER'")
+                m_SharedFile = CreateFileMapping(New IntPtr(-1), IntPtr.Zero, PageProtection.ReadWrite, 0, 4096, "DBWIN_BUFFER")
+                If m_SharedFile = IntPtr.Zero Then
+                    Throw CreateApplicationException("Failed to create a file mapping to slot 'DBWIN_BUFFER'")
+                End If
             End If
 
             ' Create a view for this file mapping so we can access it
@@ -248,9 +221,9 @@ Public NotInheritable Class DebugMonitor
             Dim pString As New IntPtr(m_SharedMem.ToInt64() + Marshal.SizeOf(GetType(Integer)))
 
             While True
-                SetEvent(m_AckEvent)
+                m_AckEvent.Set()
 
-                Dim ret As Integer = WaitForSingleObject(m_ReadyEvent, INFINITE)
+                Dim ret As Boolean = m_ReadyEvent.WaitOne()
 
                 ' if we have no capture set it means that someone
                 ' called 'Stop()' and is now waiting for us to exit
@@ -259,7 +232,7 @@ Public NotInheritable Class DebugMonitor
                     Exit While
                 End If
 
-                If ret = WAIT_OBJECT_0 Then
+                If ret Then
                     ' The first DWORD of the shared memory buffer contains
                     ' the process ID of the client that sent the debug string.
                     FireOnOutputDebugString(Marshal.ReadInt32(m_SharedMem), Marshal.PtrToStringAnsi(pString))
@@ -295,19 +268,15 @@ Public NotInheritable Class DebugMonitor
     ''' </summary>
     Private Shared Sub Dispose()
         ' Close AckEvent
-        If m_AckEvent <> IntPtr.Zero Then
-            If Not CloseHandle(m_AckEvent) Then
-                Throw CreateApplicationException("Failed to close handle for 'AckEvent'")
-            End If
-            m_AckEvent = IntPtr.Zero
+        If m_AckEvent IsNot Nothing Then
+            m_AckEvent.Close()
+            m_AckEvent = Nothing
         End If
 
         ' Close ReadyEvent
-        If m_ReadyEvent <> IntPtr.Zero Then
-            If Not CloseHandle(m_ReadyEvent) Then
-                Throw CreateApplicationException("Failed to close handle for 'ReadyEvent'")
-            End If
-            m_ReadyEvent = IntPtr.Zero
+        If m_ReadyEvent IsNot Nothing Then
+            m_ReadyEvent.Close()
+            m_ReadyEvent = Nothing
         End If
 
 
@@ -325,13 +294,6 @@ Public NotInheritable Class DebugMonitor
             End If
             m_SharedFile = IntPtr.Zero
         End If
-
-
-        ' Close our mutex
-        If m_Mutex IsNot Nothing Then
-            m_Mutex.Close()
-            m_Mutex = Nothing
-        End If
     End Sub
 
     ''' <summary>
@@ -344,10 +306,10 @@ Public NotInheritable Class DebugMonitor
                 Throw New ObjectDisposedException("DebugMonitor", "This DebugMonitor is not running.")
             End If
             m_Capturer = Nothing
-            PulseEvent(m_ReadyEvent)
-            While m_AckEvent <> IntPtr.Zero
-
-
+            While m_AckEvent IsNot Nothing
+                m_ReadyEvent.Set()
+                m_ReadyEvent.Reset()
+                Thread.Sleep(10)
             End While
         End SyncLock
     End Sub

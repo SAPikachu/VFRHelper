@@ -87,6 +87,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrameOption.vb" />
+    <Compile Include="TfmFrameInfoManager.vb" />
     <Compile Include="TfmSettingsForm.Designer.vb">
       <DependentUpon>TfmSettingsForm.vb</DependentUpon>
     </Compile>
