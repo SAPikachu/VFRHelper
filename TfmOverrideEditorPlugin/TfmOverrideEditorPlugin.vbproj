@@ -198,8 +198,6 @@ exit /b 0</PreBuildEvent>
     <PostBuildEvent>md "$(SolutionDir)VFRHelper\$(OutDir)plugins"
 copy "$(TargetPath)" "$(SolutionDir)VFRHelper\$(OutDir)plugins"
 copy "$(TargetDir)$(TargetName).keymappings.xml" "$(SolutionDir)VFRHelper\$(OutDir)plugins"
-copy /y "$(TargetPath)" "D:\!VideoProcessing\VFRHelper\plugins\"
-copy /y "$(TargetDir)$(TargetName).keymappings.xml" "D:\!VideoProcessing\VFRHelper\plugins\"
 exit /b 0</PostBuildEvent>
   </PropertyGroup>
 </Project>

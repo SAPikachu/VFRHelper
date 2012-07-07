@@ -199,16 +199,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AvisynthWrapper.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ffms2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -234,8 +224,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy /y "$(TargetDir)*.exe" "D:\!VideoProcessing\VFRHelper\"
-copy /y "$(TargetDir)*.dll" "D:\!VideoProcessing\VFRHelper\"
-del  "D:\!VideoProcessing\VFRHelper\*.vshost.*"</PostBuildEvent>
+    <PostBuildEvent>copy /y "$(SolutionDir)contrib\ffms2.dll" "$(TargetDir)"
+copy /y "$(SolutionDir)contrib\AvisynthWrapper.dll" "$(TargetDir)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
