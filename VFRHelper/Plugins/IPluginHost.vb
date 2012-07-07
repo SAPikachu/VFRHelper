@@ -9,6 +9,7 @@
         Function BrowseOpen(ByVal filter As String) As String
         Function BrowseSave(ByVal filter As String) As String
         Property VideoProvider() As VideoProviders.IVideoProvider
+        Property FrameSizeMode As FrameSizeMode
         Event Seek As EventHandler
         Event VideoProviderChanged As EventHandler
         Event BeforePluginUnload As System.ComponentModel.CancelEventHandler

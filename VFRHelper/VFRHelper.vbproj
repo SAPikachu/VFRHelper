@@ -104,6 +104,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Plugins\ChapterEditor\ChapterEditorPlugin.vb" />
+    <Compile Include="FrameSizeMode.vb" />
     <Compile Include="Plugins\IPlugin.vb" />
     <Compile Include="Plugins\IPluginHost.vb" />
     <Compile Include="Plugins\PluginBase.vb" />

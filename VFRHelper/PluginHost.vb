@@ -275,6 +275,16 @@ Partial Class MainForm
         Public Sub NotifyMessage(ByVal str As String) Implements Plugins.IPluginHost.NotifyMessage
             _mainForm.Notify(str)
         End Sub
+
+        Public Property FrameSizeMode() As FrameSizeMode Implements IPluginHost.FrameSizeMode
+            Get
+                Return _mainForm.FrameSizeMode
+            End Get
+            Set(ByVal value As FrameSizeMode)
+                _mainForm.FrameSizeMode = value
+            End Set
+        End Property
+
     End Class
 
 End Class

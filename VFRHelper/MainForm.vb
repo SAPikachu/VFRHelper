@@ -427,6 +427,10 @@ Public Class MainForm
         Next
         Return True
     End Function
+
+    Private Sub picFrame_DoubleClick(sender As Object, e As System.EventArgs) Handles picFrame.DoubleClick
+        FrameSizeMode = If(FrameSizeMode = FrameSizeMode.Stretched, FrameSizeMode.Original, FrameSizeMode.Stretched)
+    End Sub
     Private Sub picFrame_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles picFrame.DragEnter
         If (e.AllowedEffect And DragDropEffects.Copy) = DragDropEffects.Copy AndAlso e.Data.GetDataPresent(DataFormats.FileDrop) Then
             Dim files As String() = CType(e.Data.GetData(DataFormats.FileDrop), String())
@@ -513,5 +517,40 @@ Public Class MainForm
         Else
             _pluginHost.SetVisiblePluginsPanel(Not gbPlugins.Visible)
         End If
+    End Sub
+
+    Property FrameSizeMode As FrameSizeMode
+        Get
+            Return If(picFrame.SizeMode = PictureBoxSizeMode.Zoom, FrameSizeMode.Stretched, FrameSizeMode.Original)
+        End Get
+        Set(value As FrameSizeMode)
+            If value = FrameSizeMode.Stretched Then
+                picFrame.SizeMode = PictureBoxSizeMode.Zoom
+                picFrame.Dock = DockStyle.Fill
+            Else
+                picFrame.Dock = DockStyle.None
+                picFrame.SizeMode = PictureBoxSizeMode.AutoSize
+                picFrame.Location = New Point(0, 0)
+                UpdateFramePosition()
+            End If
+        End Set
+    End Property
+
+    Sub UpdateFramePosition()
+        If FrameSizeMode = FrameSizeMode.Stretched Then
+            Return
+        End If
+        panFrameContainer.SuspendLayout()
+        If picFrame.Width < panFrameContainer.Width Then
+            picFrame.Left = (panFrameContainer.Width - picFrame.Width) \ 2
+        End If
+        If picFrame.Height < panFrameContainer.Height Then
+            picFrame.Top = (panFrameContainer.Height - picFrame.Height) \ 2
+        End If
+        panFrameContainer.ResumeLayout()
+    End Sub
+
+    Private Sub MainForm_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
+        UpdateFramePosition()
     End Sub
 End Class

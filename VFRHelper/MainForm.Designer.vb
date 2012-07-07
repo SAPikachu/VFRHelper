@@ -22,24 +22,26 @@ Partial Class MainForm
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Me.btnOpenTC = New System.Windows.Forms.Button
-        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown
-        Me.btnOpenVideo = New System.Windows.Forms.Button
-        Me.picFrame = New System.Windows.Forms.PictureBox
-        Me.TrackBar1 = New System.Windows.Forms.TrackBar
-        Me.txtFrameType = New System.Windows.Forms.TextBox
+        Me.components = New System.ComponentModel.Container()
+        Me.btnOpenTC = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.btnOpenVideo = New System.Windows.Forms.Button()
+        Me.picFrame = New System.Windows.Forms.PictureBox()
+        Me.TrackBar1 = New System.Windows.Forms.TrackBar()
+        Me.txtFrameType = New System.Windows.Forms.TextBox()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.txtTimecode = New System.Windows.Forms.MaskedTextBox
-        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog
-        Me.tabPlugins = New System.Windows.Forms.TabControl
-        Me.gbPlugins = New System.Windows.Forms.GroupBox
-        Me.btnTogglePlugins = New System.Windows.Forms.Button
+        Me.txtTimecode = New System.Windows.Forms.MaskedTextBox()
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.tabPlugins = New System.Windows.Forms.TabControl()
+        Me.gbPlugins = New System.Windows.Forms.GroupBox()
+        Me.btnTogglePlugins = New System.Windows.Forms.Button()
+        Me.panFrameContainer = New System.Windows.Forms.Panel()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.picFrame, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbPlugins.SuspendLayout()
+        Me.panFrameContainer.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnOpenTC
@@ -80,10 +82,8 @@ Partial Class MainForm
         '
         'picFrame
         '
-        Me.picFrame.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.picFrame.Location = New System.Drawing.Point(12, 13)
+        Me.picFrame.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.picFrame.Location = New System.Drawing.Point(0, 0)
         Me.picFrame.Name = "picFrame"
         Me.picFrame.Size = New System.Drawing.Size(640, 520)
         Me.picFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -93,7 +93,7 @@ Partial Class MainForm
         'TrackBar1
         '
         Me.TrackBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TrackBar1.AutoSize = False
         Me.TrackBar1.Enabled = False
         Me.TrackBar1.LargeChange = 0
@@ -147,7 +147,7 @@ Partial Class MainForm
         'gbPlugins
         '
         Me.gbPlugins.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.gbPlugins.Controls.Add(Me.tabPlugins)
         Me.gbPlugins.Location = New System.Drawing.Point(12, 635)
         Me.gbPlugins.Name = "gbPlugins"
@@ -168,6 +168,17 @@ Partial Class MainForm
         Me.btnTogglePlugins.Text = "Load Plugin"
         Me.btnTogglePlugins.UseVisualStyleBackColor = True
         '
+        'panFrameContainer
+        '
+        Me.panFrameContainer.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.panFrameContainer.Controls.Add(Me.picFrame)
+        Me.panFrameContainer.Location = New System.Drawing.Point(12, 13)
+        Me.panFrameContainer.Name = "panFrameContainer"
+        Me.panFrameContainer.Size = New System.Drawing.Size(640, 520)
+        Me.panFrameContainer.TabIndex = 13
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -178,10 +189,10 @@ Partial Class MainForm
         Me.Controls.Add(Me.txtTimecode)
         Me.Controls.Add(Me.txtFrameType)
         Me.Controls.Add(Me.TrackBar1)
-        Me.Controls.Add(Me.picFrame)
         Me.Controls.Add(Me.btnOpenVideo)
         Me.Controls.Add(Me.NumericUpDown1)
         Me.Controls.Add(Me.btnOpenTC)
+        Me.Controls.Add(Me.panFrameContainer)
         Me.DoubleBuffered = True
         Me.KeyPreview = True
         Me.Name = "MainForm"
@@ -190,6 +201,7 @@ Partial Class MainForm
         CType(Me.picFrame, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.gbPlugins.ResumeLayout(False)
+        Me.panFrameContainer.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -207,5 +219,6 @@ Partial Class MainForm
     Friend WithEvents tabPlugins As System.Windows.Forms.TabControl
     Friend WithEvents gbPlugins As System.Windows.Forms.GroupBox
     Friend WithEvents btnTogglePlugins As System.Windows.Forms.Button
+    Friend WithEvents panFrameContainer As System.Windows.Forms.Panel
 
 End Class
