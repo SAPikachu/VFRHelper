@@ -239,7 +239,10 @@ Public NotInheritable Class DebugMonitor
                 End If
             End While
 
-        Catch
+        Catch ex As Exception
+            If Debugger.IsAttached Then
+                MessageBox.Show(ex.ToString)
+            End If
             Throw
 
             ' Cleanup

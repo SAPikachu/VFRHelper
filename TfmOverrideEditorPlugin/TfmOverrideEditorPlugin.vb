@@ -35,6 +35,11 @@ Public Class TfmOverrideEditorPlugin
     End Sub
 
     Private Sub OpenD2V()
+        If _frameInfo Is Nothing Then
+            _frameInfo = New TfmFrameInfoManager
+        Else
+            _frameInfo.ClearCache()
+        End If
         Dim newProvider = New TfmVideoProvider
         newProvider.Open(_settingsForm.txtD2V.Text, _settingsForm.MakeTfmParam())
         If _provider IsNot Nothing Then
@@ -53,11 +58,6 @@ Public Class TfmOverrideEditorPlugin
                 _settingsForm.txtTfmAnalysisFile.Text = ""
                 MessageBox.Show(ex.Message, "TFM Overrides Editor", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End Try
-        End If
-        If _frameInfo Is Nothing Then
-            _frameInfo = New TfmFrameInfoManager
-        Else
-            _frameInfo.ClearCache()
         End If
     End Sub
     Private Sub Main()
@@ -78,6 +78,7 @@ Public Class TfmOverrideEditorPlugin
         AddHandler Host.BeforePluginUnload, AddressOf OnBeforePluginUnload
         Host.NotifyMessage(Nothing)
         Host.UpdateView()
+        UpdateFrameInfo()
     End Sub
     Private Sub FillEditorListBox()
         Try
@@ -108,6 +109,7 @@ Public Class TfmOverrideEditorPlugin
         _provider.SetFrameOptionsFromOptionGroups(_frameOptionGroups)
         _provider.SeekTo(orgFrame)
         Host.UpdateView()
+        UpdateFrameInfo()
     End Sub
     Private Sub OnHostVideoProviderChange(ByVal sender As Object, ByVal e As EventArgs)
         If Host.VideoProvider IsNot _provider Then
@@ -403,6 +405,8 @@ Public Class TfmOverrideEditorPlugin
     End Sub
 
     Private Sub _frameInfo_FrameInfoUpdated(sender As Object, e As System.EventArgs) Handles _frameInfo.FrameInfoUpdated
-        _editorForm.BeginInvoke(New MethodInvoker(AddressOf UpdateFrameInfo))
+        If _editorForm IsNot Nothing Then
+            _editorForm.BeginInvoke(New MethodInvoker(AddressOf UpdateFrameInfo))
+        End If
     End Sub
 End Class
