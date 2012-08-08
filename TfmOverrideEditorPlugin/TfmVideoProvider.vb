@@ -198,15 +198,22 @@ Public Class TfmVideoProvider
                 Else
                     group.End = Integer.Parse(match.Groups("endFrame").Value)
                 End If
-                group.Option = New FrameOption
+                If groupList.Count > 0 AndAlso
+                    groupList(groupList.Count - 1).Start = group.Start AndAlso
+                    groupList(groupList.Count - 1).End = group.End Then
+
+                    group = groupList(groupList.Count - 1)
+                Else
+                    group.Option = New FrameOption
+                    groupList.Add(group)
+                End If
                 If match.Groups("matchCodes").Length > 0 Then
                     group.Option.MatchCode = match.Groups("matchCodes").Value
                 ElseIf match.Groups("isCombed").Length > 0 Then
-                    group.Option.IsCombed = Array.ConvertAll(Of Char, Boolean)(match.Groups("isCombed").Value.ToCharArray(), Function(ch) ch = "+"c)
+                    group.Option.IsCombed = Utils.CombedStringToArray(match.Groups("isCombed").Value)
                 ElseIf match.Groups("otherOption").Length > 0 Then
                     group.Option.OtherOptions = New String() {match.Groups("otherOption").Value}
                 End If
-                groupList.Add(group)
             Loop
         End Using
         SetFrameOptionsFromOptionGroups(groupList.ToArray())

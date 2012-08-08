@@ -30,8 +30,11 @@ Public Class TfmOverrideEditorPlugin
         RegisterHotKeyAction("SetLockRangeStartFrame", AddressOf Action_SetLockRangeStartFrame)
         RegisterHotKeyAction("SetLockRangeEndFrame", AddressOf Action_SetLockRangeEndFrame)
         RegisterHotKeyAction("EnterFrameRangePattern", AddressOf Action_EnterFrameRangePattern)
-        RegisterHotKeyAction("ToggleFrameRangeCombed", AddressOf Action_ToggleFrameRangeCombed)
+        RegisterHotKeyAction("EnterFrameRangeCombedPattern", AddressOf Action_ToggleFrameRangeCombed)
         RegisterHotKeyAction("ApplyFrameRange", AddressOf Action_ApplyFrameRange)
+
+        ' Deprecated
+        RegisterHotKeyAction("ToggleFrameRangeCombed", AddressOf Action_ToggleFrameRangeCombed)
     End Sub
 
     Private Sub OpenD2V()
@@ -210,7 +213,6 @@ Public Class TfmOverrideEditorPlugin
         _dirty = True
     End Sub
     Public Sub SetFrameOptionFrameRange()
-        Dim combed As Boolean? = _editorForm.GetCombedStatusFromCheckBox(_editorForm.chkRangeCombed)
         Dim startFrame = Integer.Parse(_editorForm.txtFrameRangeStart.Text)
         Dim endFrame = Integer.Parse(_editorForm.txtFrameRangeEnd.Text)
         If endFrame > _provider.FrameCount - 1 Then
@@ -233,7 +235,7 @@ Public Class TfmOverrideEditorPlugin
                                             .End = endFrame, _
                                             .Option = New FrameOption With { _
                                                         .MatchCode = If(_editorForm.txtPattern.Text = "", Nothing, _editorForm.txtPattern.Text), _
-                                                        .IsCombed = If(combed.HasValue, New Boolean() {combed.Value}, Nothing)}}
+                                                        .IsCombed = Utils.CombedStringToArray(_editorForm.txtCombedPattern.Text)}}
         _frameOptionGroups.Add(optionGroup)
         _editorForm.RefreshListBoxDataSource()
         _editorForm.lstOverrideEntries.SelectedItem = optionGroup
@@ -273,9 +275,14 @@ Public Class TfmOverrideEditorPlugin
                                             .Start = reserveEnd + 1, _
                                             .End = optionGroup.End, _
                                             .Option = CType(optionGroup.Option.Clone(), FrameOption)}
-            If Not String.IsNullOrEmpty(optionGroup.Option.MatchCode) AndAlso (newGroup.Start - orgStart) Mod optionGroup.Option.MatchCode.Length > 0 Then
-                Dim pos = (newGroup.Start - orgStart) Mod optionGroup.Option.MatchCode.Length
-                newGroup.Option.MatchCode = optionGroup.Option.MatchCode.Substring(pos) & optionGroup.Option.MatchCode.Substring(0, pos)
+            If Not String.IsNullOrEmpty(optionGroup.Option.MatchCode) Then
+                Dim matchOffset = (newGroup.Start - orgStart) Mod optionGroup.Option.MatchCode.Length
+                newGroup.Option.MatchCode = optionGroup.Option.MatchCode.Substring(matchOffset) & optionGroup.Option.MatchCode.Substring(0, matchOffset)
+            End If
+            If optionGroup.Option.IsCombed IsNot Nothing Then
+                Dim isCombedOffset = (newGroup.Start - orgStart) Mod optionGroup.Option.IsCombed.Length
+                Array.Copy(optionGroup.Option.IsCombed, isCombedOffset, newGroup.Option.IsCombed, 0, optionGroup.Option.IsCombed.Length - isCombedOffset)
+                Array.Copy(optionGroup.Option.IsCombed, 0, newGroup.Option.IsCombed, optionGroup.Option.IsCombed.Length - isCombedOffset, isCombedOffset)
             End If
             _frameOptionGroups.Add(newGroup)
             optionGroup.End = reserveEnd
@@ -297,7 +304,7 @@ Public Class TfmOverrideEditorPlugin
                 End If
                 If group.Option.IsCombed IsNot Nothing Then
                     WriteStartAndEndFrame(swr, group)
-                    swr.WriteLine(" {0}", New String(Array.ConvertAll(Of Boolean, Char)(group.Option.IsCombed, Function(c) If(c, "+"c, "-"c))))
+                    swr.WriteLine(" {0}", Utils.CombedArrayToString(group.Option.IsCombed))
                 End If
                 If group.Option.OtherOptions IsNot Nothing Then
                     For Each opt In group.Option.OtherOptions
@@ -377,14 +384,9 @@ Public Class TfmOverrideEditorPlugin
         Return False
     End Function
     Private Function Action_ToggleFrameRangeCombed() As Boolean
-        Select Case _editorForm.chkRangeCombed.CheckState
-            Case CheckState.Indeterminate
-                _editorForm.chkRangeCombed.CheckState = CheckState.Unchecked
-            Case CheckState.Unchecked
-                _editorForm.chkRangeCombed.CheckState = CheckState.Checked
-            Case CheckState.Checked
-                _editorForm.chkRangeCombed.CheckState = CheckState.Indeterminate
-        End Select
+        _editorForm.BringToFront()
+        _editorForm.txtCombedPattern.SelectAll()
+        _editorForm.txtCombedPattern.Focus()
         Return False
     End Function
     Private Function Action_ApplyFrameRange() As Boolean

@@ -33,7 +33,7 @@ Public Class FrameOptionGroup
             sb.AppendFormat(" {0}", Me.Option.MatchCode)
         End If
         If Me.Option.IsCombed IsNot Nothing Then
-            sb.AppendFormat(" {0}", New String(Array.ConvertAll(Of Boolean, Char)(Me.Option.IsCombed, Function(c) If(c, "+"c, "-"c))))
+            sb.AppendFormat(" {0}", Utils.CombedArrayToString(Me.Option.IsCombed))
         End If
         If Me.Option.OtherOptions IsNot Nothing Then
             For Each opt In Me.Option.OtherOptions

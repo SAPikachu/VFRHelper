@@ -34,9 +34,10 @@ Partial Class EditorForm
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.chkCombed = New System.Windows.Forms.CheckBox()
         Me.gbFrameRange = New System.Windows.Forms.GroupBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtCombedPattern = New System.Windows.Forms.TextBox()
         Me.btnSetRangeEnd = New System.Windows.Forms.Button()
         Me.btnSetRangeStart = New System.Windows.Forms.Button()
-        Me.chkRangeCombed = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtPattern = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -169,9 +170,10 @@ Partial Class EditorForm
         '
         Me.gbFrameRange.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.gbFrameRange.Controls.Add(Me.Label4)
+        Me.gbFrameRange.Controls.Add(Me.txtCombedPattern)
         Me.gbFrameRange.Controls.Add(Me.btnSetRangeEnd)
         Me.gbFrameRange.Controls.Add(Me.btnSetRangeStart)
-        Me.gbFrameRange.Controls.Add(Me.chkRangeCombed)
         Me.gbFrameRange.Controls.Add(Me.Label3)
         Me.gbFrameRange.Controls.Add(Me.txtPattern)
         Me.gbFrameRange.Controls.Add(Me.Label2)
@@ -185,6 +187,24 @@ Partial Class EditorForm
         Me.gbFrameRange.TabIndex = 4
         Me.gbFrameRange.TabStop = False
         Me.gbFrameRange.Text = "Frame Range"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(10, 109)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(46, 13)
+        Me.Label4.TabIndex = 13
+        Me.Label4.Text = "Combed"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtCombedPattern
+        '
+        Me.txtCombedPattern.Location = New System.Drawing.Point(60, 106)
+        Me.txtCombedPattern.Name = "txtCombedPattern"
+        Me.txtCombedPattern.Size = New System.Drawing.Size(114, 20)
+        Me.txtCombedPattern.TabIndex = 3
+        Me.txtCombedPattern.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'btnSetRangeEnd
         '
@@ -204,27 +224,15 @@ Partial Class EditorForm
         Me.btnSetRangeStart.Text = "Set"
         Me.btnSetRangeStart.UseVisualStyleBackColor = True
         '
-        'chkRangeCombed
-        '
-        Me.chkRangeCombed.AutoSize = True
-        Me.chkRangeCombed.Checked = True
-        Me.chkRangeCombed.CheckState = System.Windows.Forms.CheckState.Indeterminate
-        Me.chkRangeCombed.Location = New System.Drawing.Point(8, 109)
-        Me.chkRangeCombed.Name = "chkRangeCombed"
-        Me.chkRangeCombed.Size = New System.Drawing.Size(65, 17)
-        Me.chkRangeCombed.TabIndex = 3
-        Me.chkRangeCombed.Text = "Combed"
-        Me.chkRangeCombed.ThreeState = True
-        Me.chkRangeCombed.UseVisualStyleBackColor = True
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 83)
+        Me.Label3.Location = New System.Drawing.Point(15, 83)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(41, 13)
         Me.Label3.TabIndex = 9
         Me.Label3.Text = "Pattern"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtPattern
         '
@@ -237,20 +245,22 @@ Partial Class EditorForm
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(27, 54)
+        Me.Label2.Location = New System.Drawing.Point(30, 54)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(26, 13)
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "End"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(15, 25)
+        Me.Label1.Location = New System.Drawing.Point(27, 25)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(29, 13)
         Me.Label1.TabIndex = 4
         Me.Label1.Text = "Start"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnApplyRange
         '
@@ -366,9 +376,10 @@ Partial Class EditorForm
     Friend WithEvents txtPattern As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents chkRangeCombed As System.Windows.Forms.CheckBox
     Friend WithEvents btnSetRangeEnd As System.Windows.Forms.Button
     Friend WithEvents btnSetRangeStart As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents lblFrameInfo As System.Windows.Forms.Label
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents txtCombedPattern As System.Windows.Forms.TextBox
 End Class

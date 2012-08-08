@@ -70,7 +70,7 @@ Public Class EditorForm
         End If
     End Sub
 
-    Private Sub txtPattern_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtPattern.KeyDown
+    Private Sub txtPattern_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtPattern.KeyDown, txtCombedPattern.KeyDown
         If e.KeyCode = Keys.Return Then
             btnApplyRange.PerformClick()
         End If
@@ -78,6 +78,12 @@ Public Class EditorForm
 
     Private Sub txtPattern_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtPattern.Validating
         If Not Regex.IsMatch(CType(sender, TextBox).Text, "^[pcnbu]*$", RegexOptions.Singleline) Then
+            e.Cancel = True
+        End If
+    End Sub
+
+    Private Sub txtCombedPattern_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtCombedPattern.Validating
+        If Not Regex.IsMatch(CType(sender, TextBox).Text, "^[+\-]*$", RegexOptions.Singleline) Then
             e.Cancel = True
         End If
     End Sub
@@ -109,4 +115,5 @@ Public Class EditorForm
     Private Sub btnSetRangeEnd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSetRangeEnd.Click
         _plugin.Action_SetLockRangeEndFrame()
     End Sub
+
 End Class
