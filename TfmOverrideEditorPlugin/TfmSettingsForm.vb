@@ -80,7 +80,7 @@ Public Class TfmSettingsForm
         Dim sb As New StringBuilder
         'sb.AppendFormat("d2v=""{0}""", txtD2V.Text)
         sb.AppendFormat("mode={0}, order={1}, pp={2}", cboMode.SelectedIndex, cboFieldOrder.SelectedIndex - 1, cboPPMode.SelectedIndex)
-        sb.Append(", slow=2, debug=true")
+        sb.Append(", slow=2, debug=true, micout=2")
         If chkDisplayFrameInfo.Checked Then
             sb.Append(", display=true")
         End If
