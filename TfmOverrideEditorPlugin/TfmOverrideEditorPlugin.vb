@@ -52,7 +52,7 @@ Public Class TfmOverrideEditorPlugin
         Host.VideoProvider = _provider
         If _settingsForm.txtTfmAnalysisFile.Text <> "" Then
             Try
-                _provider.ReadTFMAnalysisFile(
+                _provider.ReadTFMAnalysisOrFrameListFile(
                     _settingsForm.txtTfmAnalysisFile.Text,
                     _settingsForm.chkMarkCombedFramesAsKeyFrame.Checked,
                     _settingsForm.chkMarkPossiblyCombedFramesAsKeyFrame.Checked,

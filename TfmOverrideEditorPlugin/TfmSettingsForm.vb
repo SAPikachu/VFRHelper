@@ -179,8 +179,20 @@ Public Class TfmSettingsForm
         End If
     End Sub
 
+    Private Function SafeCheckIsTFMAnalysisFile() As Boolean
+        If Not File.Exists(txtTfmAnalysisFile.Text) Then
+            Return False
+        End If
+        Try
+            Return Utils.IsTFMAnalysisFile(txtTfmAnalysisFile.Text)
+        Catch ex As ArgumentException
+            Return False
+        Catch ex As IOException
+            Return False
+        End Try
+    End Function
     Private Sub txtTfmAnalysisFile_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtTfmAnalysisFile.TextChanged
-        gbTfmAnalysisFileOption.Enabled = (txtTfmAnalysisFile.Text <> "")
+        gbTfmAnalysisFileOption.Enabled = (txtTfmAnalysisFile.Text <> "" AndAlso SafeCheckIsTFMAnalysisFile())
     End Sub
 
     Private Sub OnCtlDragEnter(ByVal sender As Object, ByVal e As DragEventArgs)

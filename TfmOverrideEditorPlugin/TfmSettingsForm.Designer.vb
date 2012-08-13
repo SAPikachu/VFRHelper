@@ -27,6 +27,7 @@ Partial Class TfmSettingsForm
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.tabFile = New System.Windows.Forms.TabPage()
         Me.gbTfmAnalysisFileOption = New System.Windows.Forms.GroupBox()
+        Me.chkMarkUBNAsKeyFrame = New System.Windows.Forms.CheckBox()
         Me.chkMarkPossiblyCombedFramesAsKeyFrame = New System.Windows.Forms.CheckBox()
         Me.chkMarkCombedFramesAsKeyFrame = New System.Windows.Forms.CheckBox()
         Me.btnBrowseTfmAnalysisFile = New System.Windows.Forms.Button()
@@ -72,7 +73,6 @@ Partial Class TfmSettingsForm
         Me.btnOK = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.chkMarkUBNAsKeyFrame = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.tabFile.SuspendLayout()
         Me.gbTfmAnalysisFileOption.SuspendLayout()
@@ -130,6 +130,16 @@ Partial Class TfmSettingsForm
         Me.gbTfmAnalysisFileOption.TabStop = False
         Me.gbTfmAnalysisFileOption.Text = "TFM analysis file options"
         '
+        'chkMarkUBNAsKeyFrame
+        '
+        Me.chkMarkUBNAsKeyFrame.AutoSize = True
+        Me.chkMarkUBNAsKeyFrame.Location = New System.Drawing.Point(10, 84)
+        Me.chkMarkUBNAsKeyFrame.Name = "chkMarkUBNAsKeyFrame"
+        Me.chkMarkUBNAsKeyFrame.Size = New System.Drawing.Size(207, 17)
+        Me.chkMarkUBNAsKeyFrame.TabIndex = 2
+        Me.chkMarkUBNAsKeyFrame.Text = "Mark u, b and n matches as key frame"
+        Me.chkMarkUBNAsKeyFrame.UseVisualStyleBackColor = True
+        '
         'chkMarkPossiblyCombedFramesAsKeyFrame
         '
         Me.chkMarkPossiblyCombedFramesAsKeyFrame.AutoSize = True
@@ -178,9 +188,9 @@ Partial Class TfmSettingsForm
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(8, 101)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(131, 13)
+        Me.Label12.Size = New System.Drawing.Size(203, 13)
         Me.Label12.TabIndex = 6
-        Me.Label12.Text = "TFM analysis file (optional)"
+        Me.Label12.Text = "TFM analysis file or frame list file (optional)"
         '
         'btnBrowseExistingOverrides
         '
@@ -599,16 +609,6 @@ Partial Class TfmSettingsForm
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         Me.OpenFileDialog1.RestoreDirectory = True
-        '
-        'chkMarkUBNAsKeyFrame
-        '
-        Me.chkMarkUBNAsKeyFrame.AutoSize = True
-        Me.chkMarkUBNAsKeyFrame.Location = New System.Drawing.Point(10, 84)
-        Me.chkMarkUBNAsKeyFrame.Name = "chkMarkUBNAsKeyFrame"
-        Me.chkMarkUBNAsKeyFrame.Size = New System.Drawing.Size(207, 17)
-        Me.chkMarkUBNAsKeyFrame.TabIndex = 2
-        Me.chkMarkUBNAsKeyFrame.Text = "Mark u, b and n matches as key frame"
-        Me.chkMarkUBNAsKeyFrame.UseVisualStyleBackColor = True
         '
         'TfmSettingsForm
         '

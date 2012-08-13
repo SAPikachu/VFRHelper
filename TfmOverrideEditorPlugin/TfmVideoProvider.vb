@@ -46,6 +46,7 @@ Public Class TfmVideoProvider
     End Function
     Private Sub ReadFrameList(list As IList(Of Integer), sr As StreamReader, header As String)
         Dim line As String
+        sr.DiscardBufferedData()
         sr.BaseStream.Seek(0, SeekOrigin.Begin)
         Do
             line = sr.ReadLine()
@@ -61,25 +62,42 @@ Public Class TfmVideoProvider
             End If
         Loop Until line.Substring(1).Trim().StartsWith("[") OrElse sr.EndOfStream
     End Sub
-    Public Sub ReadTFMAnalysisFile(
+    Private Sub ReadRawFrameList(list As IList(Of Integer), sr As StreamReader)
+        Dim line As String
+        sr.DiscardBufferedData()
+        sr.BaseStream.Seek(0, SeekOrigin.Begin)
+        Do
+            line = sr.ReadLine()
+            Dim match = Regex.Match(line, ".*?(?<frameNumber>\d+).*")
+            If match.Success Then
+                Dim number As Integer = Integer.Parse(match.Groups("frameNumber").Value)
+                If Not list.Contains(number) Then
+                    list.Add(number)
+                End If
+            End If
+        Loop Until sr.EndOfStream
+    End Sub
+
+    Public Sub ReadTFMAnalysisOrFrameListFile(
         ByVal filePath As String,
         ByVal readCombedFrames As Boolean,
         ByVal readPossiblyCombedFrames As Boolean,
         ByVal readUBNFrames As Boolean)
         Try
             Using sr = File.OpenText(filePath)
-                If Not sr.ReadLine().StartsWith("#TFM") Then
-                    Throw New InvalidDataException("Not a valid TFM analysis file.")
-                End If
                 _keyFrames = New List(Of Integer)
-                If readCombedFrames Then
-                    ReadFrameList(_keyFrames, sr, "[Individual Frames]")
-                End If
-                If readPossiblyCombedFrames Then
-                    ReadFrameList(_keyFrames, sr, "[POSSIBLE MISSED COMBED FRAMES]")
-                End If
-                If readUBNFrames Then
-                    ReadFrameList(_keyFrames, sr, "[u, b, AND AGAINST ORDER (n) MATCHES]")
+                If Utils.IsTFMAnalysisFile(filePath) Then
+                    If readCombedFrames Then
+                        ReadFrameList(_keyFrames, sr, "[Individual Frames]")
+                    End If
+                    If readPossiblyCombedFrames Then
+                        ReadFrameList(_keyFrames, sr, "[POSSIBLE MISSED COMBED FRAMES]")
+                    End If
+                    If readUBNFrames Then
+                        ReadFrameList(_keyFrames, sr, "[u, b, AND AGAINST ORDER (n) MATCHES]")
+                    End If
+                Else
+                    ReadRawFrameList(_keyFrames, sr)
                 End If
                 _keyFrames.Sort()
             End Using

@@ -1,4 +1,6 @@
-﻿Class Utils
+﻿Imports System.IO
+
+Class Utils
     Private Shared Function CharToCombed(ch As Char) As Boolean
         If ch = "+"c Then
             Return True
@@ -20,6 +22,12 @@
             Return Nothing
         End If
         Return New String(Array.ConvertAll(combed, Function(c) If(c, "+"c, "-"c)))
+    End Function
+
+    Public Shared Function IsTFMAnalysisFile(filePath As String) As Boolean
+        Using sr = File.OpenText(filePath)
+            Return sr.ReadLine().StartsWith("#TFM")
+        End Using
     End Function
 
     Private Sub New()
