@@ -64,7 +64,8 @@
 
         Protected Overridable Function IsSuitableTimecodes(ByVal timecodes As Timecodes) As Boolean Implements IVideoProvider.IsSuitableTimecodes
             CheckDisposed()
-            Return timecodes.Count = FrameCount
+            ' Latest mkvextract (5.7.0) will add one additional line at the end to indicate end time of last frame
+            Return timecodes.Count >= FrameCount AndAlso timecodes.Count - FrameCount <= 1
         End Function
 
         Public Overridable Function GetTimecodeOfCurrentFrame() As String Implements IVideoProvider.GetTimecodeOfCurrentFrame
