@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VFRHelper", "VFRHelper\VFRHelper.vbproj", "{977AA0E9-EFA4-41C5-AF7A-F23E89B10420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviFile", "..\AVIFileWrapper\AviFile.csproj", "{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AviFile", "AVIFileWrapper\AviFile.csproj", "{ABB32A29-AF50-47FA-B243-5FD75A5ABA54}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TfmOverrideEditorPlugin", "TfmOverrideEditorPlugin\TfmOverrideEditorPlugin.vbproj", "{40199D31-3D1D-4491-8233-912CA8EE866D}"
 EndProject
