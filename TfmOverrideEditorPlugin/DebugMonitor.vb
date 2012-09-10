@@ -18,8 +18,6 @@ Public Delegate Sub OnOutputDebugStringHandler(ByVal pid As Integer, ByVal text 
 ''' <remarks>	
 '''	This class is a port of Microsofts Visual Studio's C++ example "dbmon", which
 '''	can be found at <c>http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vcsample98/html/vcsmpdbmon.asp</c>.
-''' </remarks>
-''' <remarks>
 '''		<code>
 '''			public static void Main(string[] args) {
 '''				DebugMonitor.Start();
